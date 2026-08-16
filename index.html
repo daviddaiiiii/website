@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-lang="zh">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -11,137 +11,158 @@
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
-  <div class="brand">湿实验验证路线图</div>
-  <div class="nav-links">
-    <a href="#why">这是在干什么</a>
-    <a href="#tiers">怎么分步验证</a>
-    <a href="#strong">较强证据</a>
-    <a href="#plausible">待验证发现</a>
-    <a href="#weak">弱证据筛查</a>
-    <a href="#plan">建议开工顺序</a>
+  <div class="brand"><span class="lang-zh">湿实验验证路线图</span><span class="lang-en">Wet-lab validation roadmap</span></div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#why"><span class="lang-zh">这是在干什么</span><span class="lang-en">What this is</span></a>
+      <a href="#drugs"><span class="lang-zh">按药物跳转</span><span class="lang-en">Jump by drug</span></a>
+      <a href="#tiers"><span class="lang-zh">怎么分步验证</span><span class="lang-en">How to validate</span></a>
+      <a href="#strong"><span class="lang-zh">较强证据</span><span class="lang-en">Stronger evidence</span></a>
+      <a href="#plausible"><span class="lang-zh">待验证发现</span><span class="lang-en">Discoveries</span></a>
+      <a href="#weak"><span class="lang-zh">弱证据筛查</span><span class="lang-en">Weak screen</span></a>
+      <a href="#plan"><span class="lang-zh">建议开工顺序</span><span class="lang-en">Suggested order</span></a>
+    </div>
+    <button type="button" class="lang-toggle" id="langToggle" aria-label="Switch language">English</button>
   </div>
 </div></nav>
 
 <main class="wrap">
 <header class="hero" id="why">
-  <h1>通道补全之后，跨数据集的“长得像”的药和基因，哪些值得做实验？</h1>
+  <h1><span class="lang-zh">通道补全之后，跨数据集的“长得像”的药和基因，哪些值得做实验？</span><span class="lang-en">After channel completion: which cross-dataset look-alike drugs and genes are worth wet-lab tests?</span></h1>
   <p class="hero-lead">
-    我们有多套显微镜细胞图像数据。有的主要是<strong>加药</strong>，有的还包含<strong>敲掉某个基因</strong>或<strong>过表达某个基因</strong>。
+    <span class="lang-zh">我们有多套显微镜细胞图像数据。有的主要是<strong>加药</strong>，有的还包含<strong>敲掉某个基因</strong>或<strong>过表达某个基因</strong>。
     因为荧光通道不齐，以前很难公平比较。把缺失通道补全（我们叫它「统一空间」）之后，
     可以在同一套形态特征里问：<em>这个药在形态上最像谁？</em>
     如果它突然很像另一个数据集里的药或基因扰动，就画出一条「邻居边」。
-    本页告诉实验同事：这些边里，哪些像已知故事、哪些可能是新发现、具体怎么验证、怎样算做成了。
+    本页告诉实验同事：这些边里，哪些像已知故事、哪些可能是新发现、具体怎么验证、怎样算做成了。</span>
+    <span class="lang-en">We have multiple microscopy cell-image datasets. Some are mainly <strong>drug treatments</strong>; others also include <strong>gene knockout</strong> or <strong>overexpression</strong>.
+    Uneven fluorescence channels used to make fair comparison hard. After completing missing channels (the “unified space”),
+    we can ask in one morphology feature space: <em>who does this drug look most like?</em>
+    If it suddenly resembles a drug or genetic perturbation from another dataset, we draw a “neighbor edge”.
+    This page tells experimental colleagues which edges look like known stories, which may be new findings, how to validate them, and what counts as success.</span>
   </p>
 
   <aside class="glossary">
-    <h2>先看懂这些词（后文尽量写全称）</h2>
+    <h2><span class="lang-zh">先看懂这些词（后文尽量写全称）</span><span class="lang-en">Glossary (full phrases preferred below)</span></h2>
     <dl>
-      <dt>射线图 / 邻居图</dt>
-      <dd>圆心是查询药物。周围最多 5 个点是形态上最像它的邻居。射线越短，距离越小，越像。</dd>
-      <dt>补全前（左边）</dt>
-      <dd>只在同一个药物图像库里找邻居，通道还不齐，跨库很难比。</dd>
-      <dt>补全后（右边）</dt>
-      <dd>通道补齐后，可以在「药物 + 基因敲除 + 基因过表达」的联合空间里找邻居。</dd>
-      <dt>形态距离 d</dt>
-      <dd>数字越小越像。它不是化学结构相似度，而是细胞形态特征的相似度。</dd>
-      <dt>药物扰动 / 基因敲除 / 基因过表达</dt>
-      <dd>三种扰动方式。文献说“同方向”时才更像真正的机制联系；方向反了可能只是碰巧长得像。</dd>
-      <dt>三种实验优先级</dt>
-      <dd><strong>优先深入验证</strong>＝可能是新发现，值得认真做；
-      <strong>先做便宜筛查</strong>＝先统一低成本看一眼；
-      <strong>已知对照，浅做即可</strong>＝用来证明方法靠谱，不是主发现。</dd>
+      <dt><span class="lang-zh">射线图 / 邻居图</span><span class="lang-en">Radial / neighborhood plot</span></dt>
+      <dd><span class="lang-zh">圆心是查询药物。周围最多 5 个点是形态上最像它的邻居。射线越短，距离越小，越像。</span><span class="lang-en">Center = query drug. Up to 5 surrounding points are morphological nearest neighbors. Shorter ray = smaller distance = more similar.</span></dd>
+      <dt><span class="lang-zh">补全前（左边）</span><span class="lang-en">Before completion (left)</span></dt>
+      <dd><span class="lang-zh">只在同一个药物图像库里找邻居，通道还不齐，跨库很难比。</span><span class="lang-en">Neighbors only within the same drug image library; channels still uneven, cross-library comparison is hard.</span></dd>
+      <dt><span class="lang-zh">补全后（右边）</span><span class="lang-en">After completion (right)</span></dt>
+      <dd><span class="lang-zh">通道补齐后，可以在「药物 + 基因敲除 + 基因过表达」的联合空间里找邻居。</span><span class="lang-en">With channels completed, neighbors can be found in a joint space of drugs + gene KO + gene OE.</span></dd>
+      <dt><span class="lang-zh">形态距离 d</span><span class="lang-en">Morphology distance d</span></dt>
+      <dd><span class="lang-zh">数字越小越像。它不是化学结构相似度，而是细胞形态特征的相似度。</span><span class="lang-en">Smaller = more similar. This is morphology-feature similarity, not chemical-structure similarity.</span></dd>
+      <dt><span class="lang-zh">药物扰动 / 基因敲除 / 基因过表达</span><span class="lang-en">Drug / gene KO / gene OE</span></dt>
+      <dd><span class="lang-zh">三种扰动方式。文献说“同方向”时才更像真正的机制联系；方向反了可能只是碰巧长得像。</span><span class="lang-en">Three perturbation modes. Literature-matched direction is closer to true mechanism; opposite direction may be coincidental look-alike.</span></dd>
+      <dt><span class="lang-zh">三种实验优先级</span><span class="lang-en">Three experimental priorities</span></dt>
+      <dd><span class="lang-zh">优先深入验证＝可能是新发现，值得认真做；先做便宜筛查＝先统一低成本看一眼；已知对照，浅做即可＝用来证明方法靠谱，不是主发现。</span><span class="lang-en">Priority deep validation = possible new finding worth serious work; cheap screen first = low-cost look; known control, keep shallow = method credibility, not a primary discovery.</span></dd>
     </dl>
   </aside>
 
   <div class="pills">
-    <span class="pill d0">优先深入验证</span>
-    <span class="pill d1">先做便宜筛查</span>
-    <span class="pill c0">已知对照，浅做即可</span>
+    <span class="pill d0"><span class="lang-zh">优先深入验证</span><span class="lang-en">Priority deep validation</span></span>
+    <span class="pill d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
+    <span class="pill c0"><span class="lang-zh">已知对照，浅做即可</span><span class="lang-en">Known control — keep shallow</span></span>
   </div>
   <div class="stats">
-    <div class="stat"><b>11</b><span>条：优先深入验证</span></div>
-    <div class="stat"><b>10</b><span>条：先做便宜筛查</span></div>
-    <div class="stat"><b>3</b><span>条：已知对照</span></div>
-    <div class="stat"><b>39</b><span>条跨库候选边（总计）</span></div>
+    <div class="stat"><b>11</b><span><span class="lang-zh">条：优先深入验证</span><span class="lang-en">edges: priority deep validation</span></span></div>
+    <div class="stat"><b>10</b><span><span class="lang-zh">条：先做便宜筛查</span><span class="lang-en">edges: cheap screen first</span></span></div>
+    <div class="stat"><b>3</b><span><span class="lang-zh">条：已知对照</span><span class="lang-en">edges: known controls</span></span></div>
+    <div class="stat"><b>39</b><span><span class="lang-zh">条跨库候选边（总计）</span><span class="lang-en">cross-library candidate edges (total)</span></span></div>
   </div>
 </header>
 
+
+<section class="block drug-toc" id="drugs">
+  <h2><span class="lang-zh">按药物跳转</span><span class="lang-en">Jump by drug</span></h2>
+  <p class="sub"><span class="lang-zh">点击药名直接跳到对应 panel（含射线图与验证条文）。</span><span class="lang-en">Click a drug name to jump to its panel (radials + validation notes).</span></p>
+  <div class="toc-group">
+    <h4><span class="lang-zh">较强证据</span><span class="lang-en">Stronger evidence</span></h4>
+    <div class="drug-chips"><a class="drug-chip k-strong" href="#hub-camptothecin">camptothecin</a><a class="drug-chip k-strong" href="#hub-PP-2">PP-2</a></div>
+  </div>
+  <div class="toc-group">
+    <h4><span class="lang-zh">待验证发现</span><span class="lang-en">Discovery candidates</span></h4>
+    <div class="drug-chips"><a class="drug-chip k-plausible" href="#hub-mitoxantrone">mitoxantrone</a><a class="drug-chip k-plausible" href="#hub-AZ841">AZ841</a><a class="drug-chip k-plausible" href="#hub-bryostatin">bryostatin</a><a class="drug-chip k-plausible" href="#hub-alsterpaullone">alsterpaullone</a><a class="drug-chip k-plausible" href="#hub-MG-132">MG-132</a><a class="drug-chip k-plausible" href="#hub-simvastatin">simvastatin</a><a class="drug-chip k-plausible" href="#hub-nocodazole">nocodazole</a></div>
+  </div>
+  <div class="toc-group">
+    <h4><span class="lang-zh">弱证据 / 噪声筛查</span><span class="lang-en">Weak / noise screen</span></h4>
+    <div class="drug-chips"><a class="drug-chip k-weak" href="#hub-weak"><span class="lang-zh">弱证据簇（汇总）</span><span class="lang-en">Weak cluster (summary)</span></a><a class="drug-chip k-weak" href="#hub-methotrexate">methotrexate</a><a class="drug-chip k-weak" href="#hub-bryostatin">bryostatin</a><a class="drug-chip k-weak" href="#hub-PP-2">PP-2</a><a class="drug-chip k-weak" href="#hub-alsterpaullone">alsterpaullone</a><a class="drug-chip k-weak" href="#hub-PD-169316">PD-169316</a><a class="drug-chip k-weak" href="#hub-MG-132">MG-132</a><a class="drug-chip k-weak" href="#hub-lactacystin">lactacystin</a><a class="drug-chip k-weak" href="#hub-proteasome-inhibitor-I">proteasome inhibitor I</a><a class="drug-chip k-weak" href="#hub-mevinolin_lovastatin">mevinolin/lovastatin</a><a class="drug-chip k-weak" href="#hub-chlorambucil">chlorambucil</a><a class="drug-chip k-weak" href="#hub-colchicine">colchicine</a></div>
+  </div>
+</section>
+
 <section class="block" id="tiers">
-  <h2>建议怎么分步做实验</h2>
+  <h2><span class="lang-zh">建议怎么分步做实验</span><span class="lang-en">Suggested experimental layers</span></h2>
   <p class="sub">
-    三层漏斗：先统一复现细胞染色成像，确认形态邻居站得住；
-    再在细胞系上用遗传与组学手段证明「不只是长得像」；
-    最后只挑 1–2 个顶尖发现上活体。
+    <span class="lang-zh">三层漏斗：先统一复现细胞染色成像，确认形态邻居站得住；再在细胞系上用遗传与组学手段证明「不只是长得像」；最后只挑 1–2 个顶尖发现上活体。</span><span class="lang-en">Three-layer funnel: first uniformly redo Cell Painting to confirm morphological neighbors; then cell-line genetics/omics to show links beyond look-alike; finally only 1–2 top hits go in vivo.</span>
   </p>
   <div class="callout">
-    文献里说的“方向一致 / 方向相反”只是阅读论文后的判断，<strong>不是实验实锤</strong>。
-    弱证据边也建议进第一层成像复现，用来统计“形态上像、但复现不像”的比例。
+    <span class="lang-zh">文献里说的“方向一致 / 方向相反”只是阅读论文后的判断，</span><span class="lang-en">Literature “same / opposite direction” labels are reading judgments, </span>
+    <strong><span class="lang-zh">不是实验实锤</span><span class="lang-en">not wet-lab facts</span></strong>。
+    <span class="lang-zh">弱证据边也建议进第一层成像复现，用来统计“形态上像、但复现不像”的比例。</span><span class="lang-en"> Weak edges should still enter Layer-1 imaging, to estimate how often look-alikes fail to reproduce.</span>
   </div>
 
   <article class="tier">
-    <h3>第一层：全员统一复现细胞染色成像（形态邻居复核）</h3>
+    <h3><span class="lang-zh">第一层：全员统一复现细胞染色成像（形态邻居复核）</span><span class="lang-en">Layer 1: Uniform Cell Painting redo (morphology neighbor check)</span></h3>
     <div class="cols">
-      <div><h5>要验证什么</h5><p>在同一套细胞染色成像条件下，补全后找出的跨库邻居，是否真的和中心药物“长得像”。这一层主要核对：形态邻居结论能不能在湿实验里站稳。</p></div>
-      <div><h5>打算怎么做</h5><p>尽量覆盖全部候选边。用与药物库一致的乳腺癌细胞系（如 MCF-7）。每个化合物先测活力曲线，选大约只明显影响 10%–30% 细胞的剂量，避免大片死亡造成假象。处理约 24 小时后做多通道细胞染色成像，与溶剂对照、一个已知阳性药、一个预期无关药同板比较。</p></div>
-      <div><h5>怎样算成功/失败</h5><p>形态上仍靠近中心药的边进入第二层；多数弱证据边应偏阴性（阴性同样有用，用来写假阳性率）。意外阳性的弱边升为优先深入。大约 3–6 周，材料费约几万元人民币量级。</p></div>
+      <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">在同一套细胞染色成像条件下，补全后找出的跨库邻居，是否真的和中心药物“长得像”。这一层主要核对：形态邻居结论能不能在湿实验里站稳。</span><span class="lang-en">Under one Cell Painting protocol, do Intact cross-library neighbors truly look like the query drug? This layer checks whether morphology-neighbor claims hold in wet lab.</span></p></div>
+      <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">尽量覆盖全部候选边。用与药物库一致的乳腺癌细胞系（如 MCF-7）。每个化合物先测活力曲线，选大约只明显影响 10%–30% 细胞的剂量，避免大片死亡造成假象。处理约 24 小时后做多通道细胞染色成像，与溶剂对照、一个已知阳性药、一个预期无关药同板比较。</span><span class="lang-en">Cover as many candidate edges as practical. Use a breast cancer line matching the drug library (e.g. MCF-7). Dose–response first; pick ~IC10–IC30 to avoid death artifacts. After ~24 h, multi-channel Cell Painting vs DMSO, one known positive, and one expected unrelated drug on the same plate.</span></p></div>
+      <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">形态上仍靠近中心药的边进入第二层；多数弱证据边应偏阴性（阴性同样有用，用来写假阳性率）。意外阳性的弱边升为优先深入。大约 3–6 周，材料费约几万元人民币量级。</span><span class="lang-en">Edges still morphologically near the query advance to Layer 2; most weak edges should trend negative (negatives still useful for false-positive rate). Unexpected weak positives promote to priority. ~3–6 weeks; materials on the order of tens of thousands RMB.</span></p></div>
     </div>
   </article>
 
   <article class="tier">
-    <h3>第二层：细胞系上的分子 / 遗传验证（突出“不只是形态”）</h3>
+    <h3><span class="lang-zh">第二层：细胞系上的分子 / 遗传验证（突出“不只是形态”）</span><span class="lang-en">Layer 2: Cell-line molecular / genetic validation (beyond morphology)</span></h3>
     <div class="cols">
-      <div><h5>要验证什么</h5><p>这些表型邻居是否在基因组、转录组、蛋白组层面也有联系——而不只是显微镜下长得像。重点裁决：真表型模仿、同一大类压力、互相拮抗，还是方向说反了。</p></div>
-      <div><h5>打算怎么做</h5><p>仍在细胞系完成。按各边条文做蛋白质印迹、免疫荧光、细胞周期流式、共处理或挽救；用小干扰 RNA / 过表达等遗传扰动钉通路。有条件时补转录组或蛋白组，把“组学上能说通”写进故事。稳定基因编辑敲除可作为本层加强项，但不必当成最终台阶。</p></div>
-      <div><h5>怎样算成功/失败</h5><p>1 到若干条边能讲清「形态 + 分子/遗传」小故事即可；做出来不像也请保留——说明形态邻居不等于同一机制。大约再加 2–4 个月。</p></div>
+      <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">这些表型邻居是否在基因组、转录组、蛋白组层面也有联系——而不只是显微镜下长得像。重点裁决：真表型模仿、同一大类压力、互相拮抗，还是方向说反了。</span><span class="lang-en">Whether phenotype neighbors also link at genome / transcriptome / proteome levels — not just look-alike under the microscope. Decide: true phenocopy, shared stress basin, antagonism, or wrong direction.</span></p></div>
+      <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">仍在细胞系完成。按各边条文做蛋白质印迹、免疫荧光、细胞周期流式、共处理或挽救；用小干扰 RNA / 过表达等遗传扰动钉通路。有条件时补转录组或蛋白组，把“组学上能说通”写进故事。稳定基因编辑敲除可作为本层加强项，但不必当成最终台阶。</span><span class="lang-en">Still in cell lines. Follow each edge’s Western / IF / cycle flow / co-treatment or rescue; pin pathways with siRNA / OE. Add transcriptomics or proteomics when available so the story is omics-coherent. Stable CRISPR KO can strengthen this layer but is not the final step.</span></p></div>
+      <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">1 到若干条边能讲清「形态 + 分子/遗传」小故事即可；做出来不像也请保留——说明形态邻居不等于同一机制。大约再加 2–4 个月。</span><span class="lang-en">One to a few edges with a clear morphology + molecular/genetic story is enough; keep negatives — they show morphology neighbors ≠ same mechanism. Add ~2–4 months.</span></p></div>
     </div>
   </article>
 
   <article class="tier">
-    <h3>第三层：只对顶尖 1–2 个发现做活体验证</h3>
+    <h3><span class="lang-zh">第三层：只对顶尖 1–2 个发现做活体验证</span><span class="lang-en">Layer 3: In vivo for only 1–2 top discoveries</span></h3>
     <div class="cols">
-      <div><h5>要验证什么</h5><p>细胞系里站得住的最强未知发现，在小鼠等活体模型里是否仍有表型或药效/毒性可读出。这一层贵、慢，只能挑极少几条。</p></div>
-      <div><h5>打算怎么做</h5><p>从第二层筛出的 top 命中里选 1–2 个；按具体故事选合适肿瘤或药理模型（给药、敲低/敲除株、或二者联用）。读出侧重肿瘤生长、组织病理、关键通路标记——与细胞系结论对齐。</p></div>
-      <div><h5>怎样算成功/失败</h5><p>活体方向与细胞系故事一致，或出现可解释差异。这是冲高影响力文章的收束证据，周期与预算单独单列，往往还要数月。</p></div>
+      <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">细胞系里站得住的最强未知发现，在小鼠等活体模型里是否仍有表型或药效/毒性可读出。这一层贵、慢，只能挑极少几条。</span><span class="lang-en">Whether the strongest unknown hits that held in cell lines still show phenotype or efficacy/toxicity in mice (or similar). Expensive and slow — only a few edges.</span></p></div>
+      <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">从第二层筛出的 top 命中里选 1–2 个；按具体故事选合适肿瘤或药理模型（给药、敲低/敲除株、或二者联用）。读出侧重肿瘤生长、组织病理、关键通路标记——与细胞系结论对齐。</span><span class="lang-en">Pick 1–2 tops from Layer 2; choose tumor/pharmacology models that fit the story (dosing, KD/KO lines, or both). Readouts: tumor growth, histopathology, key pathway markers — aligned with cell-line conclusions.</span></p></div>
+      <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">活体方向与细胞系故事一致，或出现可解释差异。这是冲高影响力文章的收束证据，周期与预算单独单列，往往还要数月。</span><span class="lang-en">In vivo direction matches the cell-line story, or differences are explainable. Closing evidence for high-impact papers; timeline/budget separately, often months more.</span></p></div>
     </div>
   </article>
 
   <article class="tier">
-    <h3>已知对照：浅做几条就够</h3>
+    <h3><span class="lang-zh">已知对照：浅做几条就够</span><span class="lang-en">Known controls: a few shallow ones suffice</span></h3>
     <div class="cols">
-      <div><h5>要验证什么</h5><p>证明邻居检索不是只会挖噪声，也能抓住文献里已经比较清楚的关系。</p></div>
-      <div><h5>打算怎么做</h5><p>例如：喜树碱与奥罗拉激酶抑制剂/氟达拉滨的细胞周期重叠；PP-2 与凋亡蛋白 caspase-3 活化；洛伐他汀加回甲羟戊酸或香叶基香叶基焦磷酸后应力纤维恢复。嵌在第一、二层里浅做即可。</p></div>
-      <div><h5>怎样算成功/失败</h5><p>按文献预期出现阳性即可，各做一小块图，不要扩写成“新发现”。</p></div>
+      <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">证明邻居检索不是只会挖噪声，也能抓住文献里已经比较清楚的关系。</span><span class="lang-en">Show neighbor retrieval is not only noise — it also recovers literature-clear relationships.</span></p></div>
+      <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">例如：喜树碱与奥罗拉激酶抑制剂/氟达拉滨的细胞周期重叠；PP-2 与凋亡蛋白 caspase-3 活化；洛伐他汀加回甲羟戊酸或香叶基香叶基焦磷酸后应力纤维恢复。嵌在第一、二层里浅做即可。</span><span class="lang-en">E.g. camptothecin vs Aurora inhibitor / fludarabine cycle overlap; PP-2 vs caspase-3 activation; lovastatin ± mevalonate/GGPP stress-fiber rescue. Nest shallowly inside Layers 1–2.</span></p></div>
+      <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">按文献预期出现阳性即可，各做一小块图，不要扩写成“新发现”。</span><span class="lang-en">Positive as literature predicts is enough — small panels each; do not inflate into “new discoveries”.</span></p></div>
     </div>
   </article>
 </section>
 
-<div class="filters" aria-label="按优先级筛选">
-  <button type="button" class="active" data-filter="all">显示全部候选边</button>
-  <button type="button" data-filter="D0">只看：优先深入验证</button>
-  <button type="button" data-filter="D1">只看：先做便宜筛查</button>
-  <button type="button" data-filter="C0">只看：已知对照</button>
+<div class="filters" aria-label="filter by priority">
+  <button type="button" class="active" data-filter="all"><span class="lang-zh">显示全部候选边</span><span class="lang-en">Show all candidate edges</span></button>
+  <button type="button" data-filter="D0"><span class="lang-zh">只看：优先深入验证</span><span class="lang-en">Only: priority deep validation</span></button>
+  <button type="button" data-filter="D1"><span class="lang-zh">只看：先做便宜筛查</span><span class="lang-en">Only: cheap screen first</span></button>
+  <button type="button" data-filter="C0"><span class="lang-zh">只看：已知对照</span><span class="lang-en">Only: known controls</span></button>
 </div>
 
 <section class="block" id="strong">
-  <h2>一、文献支持较强的射线（先用来建立信心）</h2>
+  <h2><span class="lang-zh">一、文献支持较强的射线（先用来建立信心）</span><span class="lang-en">I. Stronger literature-supported rays (build confidence first)</span></h2>
   <p class="sub">
-    下面每个中心药物都重新画了「补全前 | 补全后」邻居图（不是截图）。
-    绿色粗线标出的是文献梳理时的焦点边。注意：同一中心药物周围，也可能混着更值得当新发现去挖的边。
+    <span class="lang-zh">下面每个中心药物都重新画了「补全前 | 补全后」邻居图（不是截图）。绿色粗线标出的是文献梳理时的焦点边。注意：同一中心药物周围，也可能混着更值得当新发现去挖的边。</span><span class="lang-en">Each query drug has a redrawn before|after neighborhood plot (not a screenshot). Thick teal rays mark literature-focus edges. Note: the same hub may also mix edges worth treating as new discoveries.</span>
   </p>
   
     <section class="hub" id="hub-camptothecin">
       <div class="hub-head">
-        <p class="eyebrow">Strong 射线面板（兼含同 hub 的 plausible 邻居）</p>
-        <h3>中心药物：camptothecin</h3>
-        <p class="moa">它在数据集里的作用机制标签：DNA replication</p>
+        <p class="eyebrow"><span class="lang-zh">Strong 射线面板（兼含同 hub 的 plausible 邻居）</span><span class="lang-en">Strong radial panel (also includes plausible neighbors on the same hub)</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：camptothecin</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：DNA replication</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间（BBBC药物图像库-only）：邻居多为 BBBC药物图像库 化学药（如 AZ841、etoposide 等）。通道补全后的统一空间（BBBC药物图像库+CPG基因与药物扰动库）：射线翻向 CPG基因与药物扰动库 化合物 danusertib / fludarabine-phosphate / PF-431396，距离更近，出现跨库药–药桥。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间（BBBC药物图像库-only）：邻居多为 BBBC药物图像库 化学药（如 AZ841、etoposide 等）。通道补全后的统一空间（BBBC药物图像库+CPG基因与药物扰动库）：射线翻向 CPG基因与药物扰动库 化合物 danusertib / fludarabine-phosphate / PF-431396，距离更近，出现跨库药–药桥。</span><span class="lang-en">Before (BBBC-only): neighbors are mostly BBBC chemicals (e.g. AZ841, etoposide). After Intact (BBBC+CPG): rays flip toward CPG compounds danusertib / fludarabine-phosphate / PF-431396, with closer distances — a cross-library drug–drug bridge.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_camptothecin.svg" alt="before-after radial for camptothecin"/></div>
         </figure>
@@ -149,75 +170,79 @@
     <article class="edge pri-c0" data-pri="C0">
       <header class="edge-head">
         <div>
-          <h4>camptothecin <span class="arrow">→</span> danusertib (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.577（越小越像） · 文献分级=<b>strong</b> · 已知盆地（校准用）</p>
+          <h4>camptothecin <span class="arrow">→</span> danusertib (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.577（越小越像）</span><span class="lang-en">Morphology distance d=0.577 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>strong</b>
+          · <span class="lang-zh">已知盆地（校准用）</span><span class="lang-en">Known basin (calibration)</span></p>
         </div>
-        <span class="badge pri-c0">已知对照，浅做即可</span>
+        <span class="badge pri-c0"><span class="lang-zh">已知对照，浅做即可</span><span class="lang-en">Known control — keep shallow</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Topo I poison 与 pan-Aurora 抑制共享 细胞分裂前的周期停滞阶段 / mitotic-stress 形态；属方向匹配的化学 表型模仿（看起来很像），文献充分，不宜作为「未知发现」主菜。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">Topo I poison 与 pan-Aurora 抑制共享 细胞分裂前的周期停滞阶段 / mitotic-stress 形态；属方向匹配的化学 表型模仿（看起来很像），文献充分，不宜作为「未知发现」主菜。</span><span class="lang-en">Topo I poison and pan-Aurora inhibition share G2/M / mitotic-stress morphology; matched-direction chemical phenocopy with ample literature — not a primary “unknown discovery”.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/29774099/" target="_blank" rel="noopener">PMID:29774099 CPT→G2/M</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/18089710/" target="_blank" rel="noopener">Carpinelli et al. danusertib / PHA-739358 综述脉络</a></li><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6010685/" target="_blank" rel="noopener">Hep3B danusertib G2/M proteomics PMC6010685</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>证明 通道补全后的统一空间 检索到的跨库药–药邻居至少包含已知可复现的周期应激盆地。</p></div>
-        <div><h5>打算怎么做</h5><p>MCF-7；CPT 与 danusertib 各自剂量–反应曲线（细胞活力检测）取 大约杀死或抑制10%–30%细胞的剂量（亚致死）；固定时间点（如 24 h）流式细胞周期（PI）+ p-Histone H3 免疫荧光成像/蛋白质印迹检测；可选 DNA损伤标记。同板设 溶剂对照 与 1 个非周期负对照药。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>两者均升高 细胞分裂前的周期停滞阶段 与/或 有丝分裂标记蛋白（磷酸化组蛋白H3）；重叠度高则支持 表型模仿（看起来很像）。若仅死亡而无周期签名，降低剂量重做。此边不扩展机制故事。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">证明 通道补全后的统一空间 检索到的跨库药–药邻居至少包含已知可复现的周期应激盆地。</span><span class="lang-en">Show that Intact cross-library drug–drug neighbors at least recover a known, reproducible cell-cycle stress basin.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">MCF-7；CPT 与 danusertib 各自剂量–反应曲线（细胞活力检测）取 大约杀死或抑制10%–30%细胞的剂量（亚致死）；固定时间点（如 24 h）流式细胞周期（PI）+ p-Histone H3 免疫荧光成像/蛋白质印迹检测；可选 DNA损伤标记。同板设 溶剂对照 与 1 个非周期负对照药。</span><span class="lang-en">MCF-7; CPT and danusertib dose–viability (CCK8) at IC10–IC30; fixed time point (e.g. 24 h) cell-cycle flow (PI) + p-Histone H3 IF/WB; optional γH2AX. Same plate: DMSO and one non-cycle negative control.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">两者均升高 细胞分裂前的周期停滞阶段 与/或 有丝分裂标记蛋白（磷酸化组蛋白H3）；重叠度高则支持 表型模仿（看起来很像）。若仅死亡而无周期签名，降低剂量重做。此边不扩展机制故事。</span><span class="lang-en">Both raise G2/M and/or p-H3; high overlap supports phenocopy. If death without cycle signature, lower dose and repeat. Do not expand this edge into a mechanism story.</span></p></div>
       </div>
     </article>
     <article class="edge pri-c0" data-pri="C0">
       <header class="edge-head">
         <div>
-          <h4>camptothecin <span class="arrow">→</span> fludarabine-phosphate (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.592（越小越像） · 文献分级=<b>strong</b> · 已知盆地（校准用）</p>
+          <h4>camptothecin <span class="arrow">→</span> fludarabine-phosphate (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.592（越小越像）</span><span class="lang-en">Morphology distance d=0.592 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>strong</b>
+          · <span class="lang-zh">已知盆地（校准用）</span><span class="lang-en">Known basin (calibration)</span></p>
         </div>
-        <span class="badge pri-c0">已知对照，浅做即可</span>
+        <span class="badge pri-c0"><span class="lang-zh">已知对照，浅做即可</span><span class="lang-en">Known control — keep shallow</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>CPT 与 fludarabine 均干扰 DNA 合成/复制叉，属匹配的化学方向。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">CPT 与 fludarabine 均干扰 DNA 合成/复制叉，属匹配的化学方向。</span><span class="lang-en">CPT and fludarabine both interfere with DNA synthesis / replication forks — matched chemical direction.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/11888330/" target="_blank" rel="noopener">PMID:11888330 fludarabine / DNA</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/10064605/" target="_blank" rel="noopener">PMID:10064605 CPT replication damage</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/7513216/" target="_blank" rel="noopener">Huang &amp; Plunkett fludarabine 综述脉络 (Leuk Lymphoma 1994)</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>第二校准：复制应激类药–药邻居可复现。</p></div>
-        <div><h5>打算怎么做</h5><p>同 CPT–danusertib 设计；读出侧重 DNA损伤标记 / EdU 掺入抑制 + 周期。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>共享复制应激/周期阻滞签名；用于方法可信度，不作新靶点宣称。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">第二校准：复制应激类药–药邻居可复现。</span><span class="lang-en">Second calibration: replication-stress drug–drug neighbors are recoverable.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">同 CPT–danusertib 设计；读出侧重 DNA损伤标记 / EdU 掺入抑制 + 周期。</span><span class="lang-en">Same design as CPT–danusertib; readout focus γH2AX / EdU incorporation block + cell cycle.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">共享复制应激/周期阻滞签名；用于方法可信度，不作新靶点宣称。</span><span class="lang-en">Shared replication-stress / cycle-arrest signature; for method credibility, not a new-target claim.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>camptothecin <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.607（越小越像） · 文献分级=<b>plausible</b> · 未知 / 少直接文献（发现主菜）</p>
+          <h4>camptothecin <span class="arrow">→</span> PF-431396 (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.607（越小越像）</span><span class="lang-en">Morphology distance d=0.607 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">未知 / 少直接文献（发现主菜）</span><span class="lang-en">Unknown / little direct literature (discovery lead)</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>FAK/PYK2 抑制与 DNA/有丝分裂应激药共现于 通道补全后的统一空间 邻域；无直接 CPT–FAK 表型模仿（看起来很像） 论文——这是需要湿实验裁决的闯入边。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">FAK/PYK2 抑制与 DNA/有丝分裂应激药共现于 通道补全后的统一空间 邻域；无直接 CPT–FAK 表型模仿（看起来很像） 论文——这是需要湿实验裁决的闯入边。</span><span class="lang-en">FAK/PYK2 inhibition co-occurs with DNA/mitotic-stress drugs in the Intact neighborhood; no direct CPT–FAK phenocopy paper — an intruder edge that needs wet-lab adjudication.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/18559653/" target="_blank" rel="noopener">PF-431396 FAK/PYK2 工具化合物说明（Tocris/供应商页可核）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=camptothecin+FAK" target="_blank" rel="noopener">弱/间接 CPT–FAK 文献（检索起点）</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>检验「复制应激药 ↔ FAK 抑制」是同形、共盆地，还是噪声。</p></div>
-        <div><h5>打算怎么做</h5><p>CPT vs PF-431396 vs 合用；读出：细胞形态/圆度、p-FAK(Y397) 免疫荧光成像/蛋白质印迹检测、划痕或 Transwell 迁移、周期与 DNA损伤标记（与 strong 边同板对照）。可选 FAK 过表达或 constitutively active FAK 挽救。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>若同形：两者共享黏着斑解聚/圆细胞 + 部分周期重叠。若仅盆地：周期签名像 CPT，黏着斑签名像 PF，重叠有限。若噪声：表型正交。任一清晰结果均可写入发现 可写进论文的小故事案例。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">检验「复制应激药 ↔ FAK 抑制」是同形、共盆地，还是噪声。</span><span class="lang-en">Test whether “replication-stress drug ↔ FAK inhibition” is same-shape, shared basin, or noise.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">CPT vs PF-431396 vs 合用；读出：细胞形态/圆度、p-FAK(Y397) 免疫荧光成像/蛋白质印迹检测、划痕或 Transwell 迁移、周期与 DNA损伤标记（与 strong 边同板对照）。可选 FAK 过表达或 constitutively active FAK 挽救。</span><span class="lang-en">CPT vs PF-431396 vs combo; readouts: morphology/roundness, p-FAK(Y397) IF/WB, scratch or Transwell migration, cycle and γH2AX (same plate as strong edges). Optional FAK OE or constitutively active FAK rescue.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">若同形：两者共享黏着斑解聚/圆细胞 + 部分周期重叠。若仅盆地：周期签名像 CPT，黏着斑签名像 PF，重叠有限。若噪声：表型正交。任一清晰结果均可写入发现 可写进论文的小故事案例。</span><span class="lang-en">Same-shape: shared focal-adhesion disassembly/round cells + partial cycle overlap. Basin-only: cycle like CPT, adhesion like PF, limited overlap. Noise: orthogonal phenotypes. Any clear outcome can become a discovery vignette.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-PP-2">
       <div class="hub-head">
-        <p class="eyebrow">Strong 射线面板</p>
-        <h3>中心药物：PP-2</h3>
-        <p class="moa">它在数据集里的作用机制标签：Epithelial / Src-family</p>
+        <p class="eyebrow"><span class="lang-zh">Strong 射线面板</span><span class="lang-en">Strong radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：PP-2</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Epithelial / Src-family</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：邻居散落在 BBBC药物图像库 化学空间（秋水仙碱、他汀、latrunculin 等）。通道补全后的统一空间：top-5 几乎全是 CPG基因与药物扰动库-基因过表达（FLT3、HRH4、CASP3、CYP3A4、AVPR1A），整簇「闯入」遗传过表达空间——除 CASP3 外多为未知或方向可疑。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：邻居散落在 BBBC药物图像库 化学空间（秋水仙碱、他汀、latrunculin 等）。通道补全后的统一空间：top-5 几乎全是 CPG基因与药物扰动库-基因过表达（FLT3、HRH4、CASP3、CYP3A4、AVPR1A），整簇「闯入」遗传过表达空间——除 CASP3 外多为未知或方向可疑。</span><span class="lang-en">Before: neighbors scatter in BBBC chemical space (colchicine, statins, latrunculin, etc.). After Intact: top-5 are almost all CPG-ORF genes (FLT3, HRH4, CASP3, CYP3A4, AVPR1A) — a cluster that enters genetic overexpression space; most are unknown or directionally unclear except CASP3.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_PP-2.svg" alt="before-after radial for PP-2"/></div>
         </figure>
@@ -225,83 +250,87 @@
     <article class="edge pri-c0" data-pri="C0">
       <header class="edge-head">
         <div>
-          <h4>PP-2 <span class="arrow">→</span> CASP3 (基因过表达)</h4>
-          <p class="meta">形态距离 d=0.500（越小越像） · 文献分级=<b>strong</b> · 已知方向匹配（校准）</p>
+          <h4>PP-2 <span class="arrow">→</span> CASP3 (ORF)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.500（越小越像）</span><span class="lang-en">Morphology distance d=0.500 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>strong</b>
+          · <span class="lang-zh">已知方向匹配（校准）</span><span class="lang-en">Known matched direction (calibration)</span></p>
         </div>
-        <span class="badge pri-c0">已知对照，浅做即可</span>
+        <span class="badge pri-c0"><span class="lang-zh">已知对照，浅做即可</span><span class="lang-en">Known control — keep shallow</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PP2 诱导 caspase-3/8 活化；CASP3 OE 与凋亡 morph 同向（GOF）。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">PP2 诱导 caspase-3/8 活化；CASP3 OE 与凋亡 morph 同向（GOF）。</span><span class="lang-en">PP2 induces caspase-3/8 activation; CASP3 OE aligns with apoptotic morphology (GOF).</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Src" target="_blank" rel="noopener">Carcinogenesis 2012 PP2→caspase（检索）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Oncol+Lett" target="_blank" rel="noopener">Oncol Lett 2018 PP2↑caspase-3</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>校准「药→基因活性升高 ↔ 基因过表达」方向规则。</p></div>
-        <div><h5>打算怎么做</h5><p>PP2 剂量窗；cleaved-CASP3 免疫荧光成像/蛋白质印迹检测、Annexin V；可选 CASP3 OE 并列。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>PP2 升 cleaved-CASP3；OE 部分 表型模仿（看起来很像）。浅层即可。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">校准「药→基因活性升高 ↔ 基因过表达」方向规则。</span><span class="lang-en">Calibrate the rule: drug → elevated gene activity ↔ ORF neighbor.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">PP2 剂量窗；cleaved-CASP3 免疫荧光成像/蛋白质印迹检测、Annexin V；可选 CASP3 OE 并列。</span><span class="lang-en">PP2 dose window; cleaved-CASP3 IF/WB, Annexin V; optional CASP3 OE side-by-side.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">PP2 升 cleaved-CASP3；OE 部分 表型模仿（看起来很像）。浅层即可。</span><span class="lang-en">PP2 raises cleaved-CASP3; OE partially phenocopies. Shallow is enough.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>PP-2 <span class="arrow">→</span> FLT3 (基因过表达)</h4>
-          <p class="meta">形态距离 d=0.443（越小越像） · 文献分级=<b>plausible</b> · 半未知（方向未实锤）</p>
+          <h4>PP-2 <span class="arrow">→</span> FLT3 (ORF)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.443（越小越像）</span><span class="lang-en">Morphology distance d=0.443 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">半未知（方向未实锤）</span><span class="lang-en">Semi-unknown (direction not settled)</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>文献常描述 Src/Lyn 在 FLT3 下游且多共抑制；邻居却是 FLT3 OE。可能是 RTK/Src 邻域，而非 OE 表型模仿（看起来很像）——必须用实验裁决方向。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">文献常描述 Src/Lyn 在 FLT3 下游且多共抑制；邻居却是 FLT3 OE。可能是 RTK/Src 邻域，而非 OE 表型模仿（看起来很像）——必须用实验裁决方向。</span><span class="lang-en">Literature often places Src/Lyn downstream of FLT3 with co-inhibition; the neighbor is FLT3 OE. May be an RTK/Src basin rather than OE phenocopy — experiment must decide direction.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lyn+FLT3-ITD+PP2" target="_blank" rel="noopener">Blood 2008 Lyn/FLT3-ITD（PP2 相关检索）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=FLT3+signaling+review" target="_blank" rel="noopener">FLT3 signaling reviews</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>判定 PP2 形态更接近 FLT3 OE、FLT3 抑制，还是无关。</p></div>
-        <div><h5>打算怎么做</h5><p>PP2 vs FLT3i（如 quizartinib/gilteritinib 工具剂量）vs FLT3 配体刺激；有条件则 FLT3 OE / KD 与药并排；读出：形态 + p-FLT3/p-Src。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>若 OE 表型模仿（看起来很像）：OE≈PP2，抑制则相反。若共抑制盆地：FLT3i≈PP2，OE 不像。清晰二分即可成为方向方法学 + 生物学 可写进论文的小故事案例。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">判定 PP2 形态更接近 FLT3 OE、FLT3 抑制，还是无关。</span><span class="lang-en">Decide whether PP2 morphology is closer to FLT3 OE, FLT3 inhibition, or unrelated.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">PP2 vs FLT3i（如 quizartinib/gilteritinib 工具剂量）vs FLT3 配体刺激；有条件则 FLT3 OE / KD 与药并排；读出：形态 + p-FLT3/p-Src。</span><span class="lang-en">PP2 vs FLT3i (quizartinib/gilteritinib tool doses) vs FLT3 ligand stimulation; if possible FLT3 OE/KD vs drug side-by-side; readouts: morphology + p-FLT3/p-Src.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">若 OE 表型模仿（看起来很像）：OE≈PP2，抑制则相反。若共抑制盆地：FLT3i≈PP2，OE 不像。清晰二分即可成为方向方法学 + 生物学 可写进论文的小故事案例。</span><span class="lang-en">If OE phenocopy: OE≈PP2, inhibition opposite. If co-inhibition basin: FLT3i≈PP2, OE unlike. A clean split becomes a direction-methodology + biology vignette.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>PP-2 <span class="arrow">→</span> HRH4 / CYP3A4 / AVPR1A (基因过表达)</h4>
-          <p class="meta">形态距离 d=0.48–0.53（越小越像） · 文献分级=<b>weak</b> · 未知（疑噪声，须筛）</p>
+          <h4>PP-2 <span class="arrow">→</span> HRH4 / CYP3A4 / AVPR1A (ORF)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.48–0.53（越小越像）</span><span class="lang-en">Morphology distance d=0.48–0.53 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">未知（疑噪声，须筛）</span><span class="lang-en">Unknown (likely noise; must screen)</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无可靠 Src–H4 / CYP3A4 / AVPR1A 作用机制 桥；现判噪声候选。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">无可靠 Src–H4 / CYP3A4 / AVPR1A 作用机制 桥；现判噪声候选。</span><span class="lang-en">No reliable Src–H4 / CYP3A4 / AVPR1A MoA bridge; currently noise candidates.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/25082669/" target="_blank" rel="noopener">PMID:25082669 PP2→AhR/CYP1A1</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=HRH4+review" target="_blank" rel="noopener">HRH4 GPCR reviews</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>第一层 全员筛：估假阳性；意外阳性则升 优先深入验证。</p></div>
-        <div><h5>打算怎么做</h5><p>与 PP2 同板统一形态/活力终点；不做深度机制，除非阳性。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>多数阴性；阴性写入假阳性分母。若阳性，再开靶点特异读出。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">第一层 全员筛：估假阳性；意外阳性则升 优先深入验证。</span><span class="lang-en">Layer-1 screen all: estimate false positives; promote to priority if unexpectedly positive.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">与 PP2 同板统一形态/活力终点；不做深度机制，除非阳性。</span><span class="lang-en">Same-plate unified morphology/viability endpoint with PP2; no deep mechanism unless positive.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">多数阴性；阴性写入假阳性分母。若阳性，再开靶点特异读出。</span><span class="lang-en">Mostly negative; negatives enter the false-positive denominator. If positive, open target-specific readouts.</span></p></div>
       </div>
     </article></div>
     </section>
 </section>
 
 <section class="block" id="plausible">
-  <h2>二、说得通但还没实锤的射线（发现主战场）</h2>
+  <h2><span class="lang-zh">二、说得通但还没实锤的射线（发现主战场）</span><span class="lang-en">II. Plausible but unsettled rays (main discovery field)</span></h2>
   <p class="sub">
-    这里往往有通路线索，但“是不是同一种机制、方向对不对”还需要实验裁决。
-    <strong>请把主要时间和预算放在这一部分。</strong>
+    <span class="lang-zh">这里往往有通路线索，但“是不是同一种机制、方向对不对”还需要实验裁决。</span><span class="lang-en">Pathway clues often exist, but whether it is the same mechanism — and whether direction is right — still needs experiments.</span>
+    <strong><span class="lang-zh">请把主要时间和预算放在这一部分。</span><span class="lang-en"> Put most time and budget here.</span></strong>
   </p>
   
     <section class="hub" id="hub-mitoxantrone">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：mitoxantrone</h3>
-        <p class="moa">它在数据集里的作用机制标签：DNA replication</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：mitoxantrone</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：DNA replication</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：主要落在 BBBC药物图像库 DNA 损伤/复制药邻域。通道补全后的统一空间：出现 CPG基因与药物扰动库-基因过表达 邻居 IMPDH1、CCND1——化学锚点连到核苷酸/周期遗传空间。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：主要落在 BBBC药物图像库 DNA 损伤/复制药邻域。通道补全后的统一空间：出现 CPG基因与药物扰动库-基因过表达 邻居 IMPDH1、CCND1——化学锚点连到核苷酸/周期遗传空间。</span><span class="lang-en">Before: mainly BBBC DNA-damage / replication neighbors. After Intact: CPG-ORF neighbors IMPDH1 and CCND1 appear — linking a chemical anchor into nucleotide / cell-cycle genetic space.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_mitoxantrone.svg" alt="before-after radial for mitoxantrone"/></div>
         </figure>
@@ -309,56 +338,58 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>mitoxantrone <span class="arrow">→</span> IMPDH1 (基因过表达)</h4>
-          <p class="meta">形态距离 d=0.571（越小越像） · 文献分级=<b>plausible</b> · 半未知（抑制 lit vs OE 邻居）</p>
+          <h4>mitoxantrone <span class="arrow">→</span> IMPDH1 (ORF)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.571（越小越像）</span><span class="lang-en">Morphology distance d=0.571 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">半未知（抑制 lit vs OE 邻居）</span><span class="lang-en">Semi-unknown (inhibition literature vs OE neighbor)</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>IMPDH 轴真实，但文献中心是抑制→GTP 耗竭；邻居是 OE（常耐药）。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">IMPDH 轴真实，但文献中心是抑制→GTP 耗竭；邻居是 OE（常耐药）。</span><span class="lang-en">IMPDH axis is real, but literature centers on inhibition → GTP depletion; the neighbor is OE (often resistance).</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9375230/" target="_blank" rel="noopener">IMPDH gateway PMC9375230</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=IMPDH2+overexpression+chemoresistance" target="_blank" rel="noopener">IMPDH2 OE chemoresistance PLoS One 2010</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>用四组比较裁决谁才是 mitoxantrone 的 morph 表型模仿（看起来很像）。</p></div>
-        <div><h5>打算怎么做</h5><p>mitoxantrone vs MPA/AVN-944（IMPDH 抑制）vs IMPDH1 OE vs IMPDH1 KD；读出：核仁/形态、GTP 相关应激代理、周期。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>若抑制≈mito 而 OE 不像 → 方向 mismatch 成立但仍有盆地；若 OE≈mito → 需重写机制假说。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">用四组比较裁决谁才是 mitoxantrone 的 morph 表型模仿（看起来很像）。</span><span class="lang-en">Four-way comparison to decide what truly morph-phenocopies mitoxantrone.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">mitoxantrone vs MPA/AVN-944（IMPDH 抑制）vs IMPDH1 OE vs IMPDH1 KD；读出：核仁/形态、GTP 相关应激代理、周期。</span><span class="lang-en">mitoxantrone vs MPA/AVN-944 (IMPDH inhibition) vs IMPDH1 OE vs IMPDH1 KD; readouts: nucleolar/morphology, GTP-stress proxies, cycle.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">若抑制≈mito 而 OE 不像 → 方向 mismatch 成立但仍有盆地；若 OE≈mito → 需重写机制假说。</span><span class="lang-en">If inhibition≈mito and OE unlike → direction mismatch but basin holds; if OE≈mito → rewrite the mechanism hypothesis.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>mitoxantrone <span class="arrow">→</span> CCND1 (基因过表达)</h4>
-          <p class="meta">形态距离 d=0.650（越小越像） · 文献分级=<b>plausible</b> · 盆地</p>
+          <h4>mitoxantrone <span class="arrow">→</span> CCND1 (ORF)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.650（越小越像）</span><span class="lang-en">Morphology distance d=0.650 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">盆地</span><span class="lang-en">Basin</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Topo II 应激与 CCND1 OE 共享增殖/周期空间，非同向 作用机制。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">Topo II 应激与 CCND1 OE 共享增殖/周期空间，非同向 作用机制。</span><span class="lang-en">Topo II stress and CCND1 OE share proliferation/cycle space, not matched MoA.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=mitoxantrone+topoisomerase+II+review" target="_blank" rel="noopener">Mitoxantrone Topo II reviews</a></li><li><a href="https://www.ncbi.nlm.nih.gov/gene/595" target="_blank" rel="noopener">NCBI Gene CCND1</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>浅层周期重叠测量；阳性有限则不升主菜。</p></div>
-        <div><h5>打算怎么做</h5><p>周期流式 + cyclin 先做便宜筛查 免疫荧光成像；与 mito 并排。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>部分 G1/S 重叠但非 identity。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">浅层周期重叠测量；阳性有限则不升主菜。</span><span class="lang-en">Shallow cycle-overlap measurement; limited positive → do not promote to lead.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">周期流式 + cyclin 先做便宜筛查 免疫荧光成像；与 mito 并排。</span><span class="lang-en">Cycle flow + cyclin D1 IF; side-by-side with mito.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">部分 G1/S 重叠但非 identity。</span><span class="lang-en">Partial G1/S overlap but not identity.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-AZ841">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：AZ841</h3>
-        <p class="moa">它在数据集里的作用机制标签：Aurora kinase inhibitors</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：AZ841</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Aurora kinase inhibitors</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：多落在 Aurora/有丝分裂相关 BBBC药物图像库 邻域。通道补全后的统一空间：与 CPT 类似地拉近 fludarabine 与 PF-431396——跨 作用机制 cryptic 候选。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：多落在 Aurora/有丝分裂相关 BBBC药物图像库 邻域。通道补全后的统一空间：与 CPT 类似地拉近 fludarabine 与 PF-431396——跨 作用机制 cryptic 候选。</span><span class="lang-en">Before: mostly Aurora / mitosis-related BBBC neighbors. After Intact: similar to CPT, pulls in fludarabine and PF-431396 — cryptic cross-MoA candidates.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_AZ841.svg" alt="before-after radial for AZ841"/></div>
         </figure>
@@ -366,56 +397,58 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>AZ841 <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.603（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+          <h4>AZ841 <span class="arrow">→</span> PF-431396 (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.603（越小越像）</span><span class="lang-en">Morphology distance d=0.603 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">未知</span><span class="lang-en">Unknown</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无 AZ841–PF431396 专文；与 CPT 共享 FAK 邻居，适合三角验证。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">无 AZ841–PF431396 专文；与 CPT 共享 FAK 邻居，适合三角验证。</span><span class="lang-en">No AZ841–PF431396 specialty paper; shares FAK neighbor with CPT — good for triangle validation.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Aurora+kinase+inhibitor+mitosis+review" target="_blank" rel="noopener">Aurora mitotic reviews</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+FAK" target="_blank" rel="noopener">PF-431396 FAK/PYK2</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>与 CPT–PF 设计对齐，检验 Aurora–FAK–DNA stress 三角。</p></div>
-        <div><h5>打算怎么做</h5><p>同 CPT–PF 读出；三药两两相关矩阵（形态特征相关或人工评分）。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>若 CPT 与 AZ841 均近 PF → 跨 作用机制 FAK 盆地可发表；否则边降权。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">与 CPT–PF 设计对齐，检验 Aurora–FAK–DNA stress 三角。</span><span class="lang-en">Align with CPT–PF design; test Aurora–FAK–DNA-stress triangle.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">同 CPT–PF 读出；三药两两相关矩阵（形态特征相关或人工评分）。</span><span class="lang-en">Same readouts as CPT–PF; pairwise correlation matrix of the three drugs (morph features or scored).</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">若 CPT 与 AZ841 均近 PF → 跨 作用机制 FAK 盆地可发表；否则边降权。</span><span class="lang-en">If both CPT and AZ841 near PF → publishable cross-MoA FAK basin; else down-weight the edge.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>AZ841 <span class="arrow">→</span> fludarabine-phosphate (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.642（越小越像） · 文献分级=<b>plausible</b> · 弱已知盆地</p>
+          <h4>AZ841 <span class="arrow">→</span> fludarabine-phosphate (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.642（越小越像）</span><span class="lang-en">Morphology distance d=0.642 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">弱已知盆地</span><span class="lang-en">Weak known basin</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Aurora + DNA 合成毒共占 细胞分裂前的周期停滞阶段 盆地（弱于 CPT 对）。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">Aurora + DNA 合成毒共占 细胞分裂前的周期停滞阶段 盆地（弱于 CPT 对）。</span><span class="lang-en">Aurora + DNA-synthesis poison co-occupy a G2/M basin (weaker than CPT pair).</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://doi.org/10.1177/1087057113503553" target="_blank" rel="noopener">BBBC021 MoA 设定 Ljosa 2013</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>浅层周期重叠。</p></div>
-        <div><h5>打算怎么做</h5><p>细胞分裂前的周期停滞阶段 流式并列。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>中等重叠即可。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">浅层周期重叠。</span><span class="lang-en">Shallow cycle overlap.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">细胞分裂前的周期停滞阶段 流式并列。</span><span class="lang-en">G2/M flow side-by-side.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">中等重叠即可。</span><span class="lang-en">Moderate overlap is enough.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-bryostatin">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：bryostatin</h3>
-        <p class="moa">它在数据集里的作用机制标签：Kinase inhibitors (PKC)</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：bryostatin</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Kinase inhibitors (PKC)</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：偏 PKC/激酶工具药邻域。通道补全后的统一空间：focal 指向 CDK7、TUBB4B 等遗传扰动——文献仅有盆地，无 表型模仿（看起来很像），发现潜力高。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：偏 PKC/激酶工具药邻域。通道补全后的统一空间：focal 指向 CDK7、TUBB4B 等遗传扰动——文献仅有盆地，无 表型模仿（看起来很像），发现潜力高。</span><span class="lang-en">Before: PKC / kinase-tool neighborhood. After Intact: focals point to genetic perturbations such as CDK7 and TUBB4B — literature has a basin only, not a phenocopy; high discovery potential.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_bryostatin.svg" alt="before-after radial for bryostatin"/></div>
         </figure>
@@ -423,75 +456,79 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>bryostatin <span class="arrow">→</span> CDK7 (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.618（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+          <h4>bryostatin <span class="arrow">→</span> CDK7 (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.618（越小越像）</span><span class="lang-en">Morphology distance d=0.618 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">未知</span><span class="lang-en">Unknown</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>bryostatin/PKC 与转录 CDK 有交叉，但不是已验证的 CDK7 LOF 表型模仿（看起来很像）。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">bryostatin/PKC 与转录 CDK 有交叉，但不是已验证的 CDK7 LOF 表型模仿（看起来很像）。</span><span class="lang-en">bryostatin/PKC crosses transcriptional CDKs, but not a validated CDK7 LOF phenocopy.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+PKC+NF-kB+Scientific+Reports+2015" target="_blank" rel="noopener">Sci Rep 2015 bryostatin PKC/NF-κB</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=CDK7+transcription+review" target="_blank" rel="noopener">CDK7 transcriptional CDK reviews</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>检验 bryostatin 是否 表型模仿（看起来很像） CDK7 抑制/敲低。</p></div>
-        <div><h5>打算怎么做</h5><p>bryostatin vs CDK7i（如 THZ1 低剂量谨慎）/ CDK7 小干扰RNA敲低；RNAPII CTD p-Ser2/5；形态。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>同向→新药–基因主张；反向或无关→降为盆地/噪声。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">检验 bryostatin 是否 表型模仿（看起来很像） CDK7 抑制/敲低。</span><span class="lang-en">Test whether bryostatin phenocopies CDK7 inhibition/knockdown.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">bryostatin vs CDK7i（如 THZ1 低剂量谨慎）/ CDK7 小干扰RNA敲低；RNAPII CTD p-Ser2/5；形态。</span><span class="lang-en">bryostatin vs CDK7i (e.g. THZ1, low dose, careful) / CDK7 siRNA; RNAPII CTD p-Ser2/5; morphology.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">同向→新药–基因主张；反向或无关→降为盆地/噪声。</span><span class="lang-en">Same direction → new drug–gene claim; opposite or unrelated → demote to basin/noise.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>bryostatin <span class="arrow">→</span> TUBB4B (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.632（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+          <h4>bryostatin <span class="arrow">→</span> TUBB4B (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.632（越小越像）</span><span class="lang-en">Morphology distance d=0.632 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">未知</span><span class="lang-en">Unknown</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PKC–细胞骨架重塑 vs β-tubulin/纤毛 MT LOF。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">PKC–细胞骨架重塑 vs β-tubulin/纤毛 MT LOF。</span><span class="lang-en">PKC–cytoskeleton remodeling vs β-tubulin/ciliary MT LOF.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+ciliopathy+2023" target="_blank" rel="noopener">Science 2023 TUBB4B ciliopathy</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+cytoskeleton" target="_blank" rel="noopener">Bryostatin cytoskeleton reviews</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>MT/纤毛相关表型是否共享。</p></div>
-        <div><h5>打算怎么做</h5><p>α/β-tubulin、Ac-tubulin 免疫荧光成像；TUBB4B 小干扰RNA敲低 与药并排。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>共享 MT 紊乱模式则升 可写进论文的小故事案例；否则弱化。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">MT/纤毛相关表型是否共享。</span><span class="lang-en">Whether MT/cilia-related phenotypes are shared.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">α/β-tubulin、Ac-tubulin 免疫荧光成像；TUBB4B 小干扰RNA敲低 与药并排。</span><span class="lang-en">α/β-tubulin, Ac-tubulin IF; TUBB4B siRNA side-by-side with drug.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">共享 MT 紊乱模式则升 可写进论文的小故事案例；否则弱化。</span><span class="lang-en">Shared MT disruption pattern → elevate vignette; otherwise weaken.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>bryostatin <span class="arrow">→</span> JTE-013 (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.675（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+          <h4>bryostatin <span class="arrow">→</span> JTE-013 (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.675（越小越像）</span><span class="lang-en">Morphology distance d=0.675 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">未知/疑噪声</span><span class="lang-en">Unknown / likely noise</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>S1P2 拮抗 vs bryostatin；无清晰桥。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">S1P2 拮抗 vs bryostatin；无清晰桥。</span><span class="lang-en">S1P2 antagonism vs bryostatin; no clear bridge.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=JTE-013+S1P2" target="_blank" rel="noopener">JTE-013 S1P2</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>第一层 噪声估计。</p></div>
-        <div><h5>打算怎么做</h5><p>同板统一终点。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>阴性为主。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">第一层 噪声估计。</span><span class="lang-en">Layer-1 noise estimate.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">同板统一终点。</span><span class="lang-en">Same-plate unified endpoint.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">阴性为主。</span><span class="lang-en">Mostly negative.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-alsterpaullone">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：alsterpaullone</h3>
-        <p class="moa">它在数据集里的作用机制标签：Kinase inhibitors</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：alsterpaullone</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Kinase inhibitors</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：落在 paullone/CDK 工具邻域。通道补全后的统一空间：拉近 TUBB4B 基因编辑敲除——报告已标 wet-lab candidate，未知度高、成像读出相对简单。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：落在 paullone/CDK 工具邻域。通道补全后的统一空间：拉近 TUBB4B 基因编辑敲除——报告已标 wet-lab candidate，未知度高、成像读出相对简单。</span><span class="lang-en">Before: paullone / CDK tool neighborhood. After Intact: pulls in TUBB4B CRISPR — already flagged as a wet-lab candidate; highly unknown, imaging readout is relatively simple.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_alsterpaullone.svg" alt="before-after radial for alsterpaullone"/></div>
         </figure>
@@ -499,56 +536,58 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>alsterpaullone <span class="arrow">→</span> TUBB4B (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.573（越小越像） · 文献分级=<b>plausible</b> · 未知（首选发现）</p>
+          <h4>alsterpaullone <span class="arrow">→</span> TUBB4B (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.573（越小越像）</span><span class="lang-en">Morphology distance d=0.573 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">未知（首选发现）</span><span class="lang-en">Unknown (preferred discovery)</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>paullone 抑 GSK-3β/CDK5→tau/MAP；邻居 TUBB4B LOF 共享 MT 盆地，未验证 表型模仿（看起来很像）。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">paullone 抑 GSK-3β/CDK5→tau/MAP；邻居 TUBB4B LOF 共享 MT 盆地，未验证 表型模仿（看起来很像）。</span><span class="lang-en">paullone inhibits GSK-3β/CDK5 → tau/MAP; neighbor TUBB4B LOF shares an MT basin — phenocopy not validated.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=paullones+GSK-3+CDK5+2000" target="_blank" rel="noopener">Eur J Biochem 2000 paullones GSK-3β/CDK5</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+Science+2023" target="_blank" rel="noopener">Science 2023 TUBB4B</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=paullone+podocyte+microtubule" target="_blank" rel="noopener">AJP Renal 2018 paullones podocyte MT</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>坐实或否定「CDK/GSK3 药 ↔ β-tubulin 基因 LOF」闯入联系。</p></div>
-        <div><h5>打算怎么做</h5><p>alsterpaullone 剂量窗；α/β-tubulin + Ac-tubulin 免疫荧光成像 定量；TUBB4B 小干扰RNA敲低/shRNA 并列；可选 tau-p Ser/Thr 蛋白质印迹检测。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>若药≈KD 的 MT 表型 → 发现主图候选；若仅部分重叠 → 盆地叙事；无关 → 降权。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">坐实或否定「CDK/GSK3 药 ↔ β-tubulin 基因 LOF」闯入联系。</span><span class="lang-en">Confirm or reject the intruder link “CDK/GSK3 drug ↔ β-tubulin gene LOF”.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">alsterpaullone 剂量窗；α/β-tubulin + Ac-tubulin 免疫荧光成像 定量；TUBB4B 小干扰RNA敲低/shRNA 并列；可选 tau-p Ser/Thr 蛋白质印迹检测。</span><span class="lang-en">alsterpaullone dose window; quantify α/β-tubulin + Ac-tubulin IF; TUBB4B siRNA/shRNA side-by-side; optional tau-p Ser/Thr WB.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">若药≈KD 的 MT 表型 → 发现主图候选；若仅部分重叠 → 盆地叙事；无关 → 降权。</span><span class="lang-en">If drug≈KD MT phenotype → main-figure discovery candidate; partial overlap → basin narrative; unrelated → down-weight.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>alsterpaullone <span class="arrow">→</span> DCK / HRH4 (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.61–0.63（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+          <h4>alsterpaullone <span class="arrow">→</span> DCK / HRH4 (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.61–0.63（越小越像）</span><span class="lang-en">Morphology distance d=0.61–0.63 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">未知/疑噪声</span><span class="lang-en">Unknown / likely noise</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>与 paullone 药理几乎无桥。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">与 paullone 药理几乎无桥。</span><span class="lang-en">Almost no bridge to paullone pharmacology.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=deoxycytidine+kinase+review" target="_blank" rel="noopener">DCK reviews</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>第一层。</p></div>
-        <div><h5>打算怎么做</h5><p>统一板。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>阴性。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">第一层。</span><span class="lang-en">Layer-1.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">统一板。</span><span class="lang-en">Unified plate.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">阴性。</span><span class="lang-en">Negative.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-MG-132">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：MG-132</h3>
-        <p class="moa">它在数据集里的作用机制标签：Protein degradation</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：MG-132</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Protein degradation</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：蛋白酶体抑制同类邻域。通道补全后的统一空间：出现 BRD4 基因敲除 等——文献是 UPS 上位性/救援，不是 morph 表型模仿（看起来很像）；湿实验要换问题。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：蛋白酶体抑制同类邻域。通道补全后的统一空间：出现 BRD4 基因敲除 等——文献是 UPS 上位性/救援，不是 morph 表型模仿（看起来很像）；湿实验要换问题。</span><span class="lang-en">Before: proteasome-inhibitor peers. After Intact: BRD4 CRI appears — literature is UPS epistasis / rescue, not morphological phenocopy; the wet-lab question must change.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_MG-132.svg" alt="before-after radial for MG-132"/></div>
         </figure>
@@ -556,56 +595,58 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>MG-132 <span class="arrow">→</span> BRD4 (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.594（越小越像） · 文献分级=<b>plausible</b> · 机制已知但易误读</p>
+          <h4>MG-132 <span class="arrow">→</span> BRD4 (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.594（越小越像）</span><span class="lang-en">Morphology distance d=0.594 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">机制已知但易误读</span><span class="lang-en">Mechanism known but easy to misread</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>MG132 救援 BRD4 degrader——证明依赖，≠ MG132 morph = BRD4-KO。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">MG132 救援 BRD4 degrader——证明依赖，≠ MG132 morph = BRD4-KO。</span><span class="lang-en">MG132 rescues BRD4 degraders — proves dependency, ≠ MG132 morph = BRD4-KO.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=ARV-825+MG132" target="_blank" rel="noopener">Chem Biol 2015 ARV-825+MG132</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=MZ1+MG132+BRD4" target="_blank" rel="noopener">ACS Chem Biol MZ1+MG132</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=IBG1+MG132+BRD4+2024" target="_blank" rel="noopener">Nature 2024 IBG1+MG132（检索）</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>用正确问题产出可发表结果：依赖/救援 ± 形态是否真同。</p></div>
-        <div><h5>打算怎么做</h5><p>臂 A：BRD4 degrader ± MG132，蛋白质印迹检测 看 BRD4 蛋白救援；臂 B：BRD4 KD/基因敲除 代理 vs MG132 形态相关——预期可能不一致，诚实报告。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>臂 A 阳性几乎必然；臂 B 若阴性，正好说明「邻域≠同 作用机制」，方法论上很有价值。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">用正确问题产出可发表结果：依赖/救援 ± 形态是否真同。</span><span class="lang-en">Ask the right question for a publishable result: dependency/rescue ± whether morphology truly matches.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">臂 A：BRD4 degrader ± MG132，蛋白质印迹检测 看 BRD4 蛋白救援；臂 B：BRD4 KD/基因敲除 代理 vs MG132 形态相关——预期可能不一致，诚实报告。</span><span class="lang-en">Arm A: BRD4 degrader ± MG132, WB for BRD4 protein rescue; Arm B: BRD4 KD/CRI proxy vs MG132 morphology correlation — may disagree; report honestly.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">臂 A 阳性几乎必然；臂 B 若阴性，正好说明「邻域≠同 作用机制」，方法论上很有价值。</span><span class="lang-en">Arm A almost surely positive; Arm B negative would show “neighborhood ≠ same MoA” — methodologically valuable.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>MG-132 <span class="arrow">→</span> SKLB1002 (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.576（越小越像） · 文献分级=<b>weak</b> · 疑噪声</p>
+          <h4>MG-132 <span class="arrow">→</span> SKLB1002 (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.576（越小越像）</span><span class="lang-en">Morphology distance d=0.576 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">疑噪声</span><span class="lang-en">Likely noise</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>VEGFR2i vs 蛋白酶体抑制，无 作用机制 链。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">VEGFR2i vs 蛋白酶体抑制，无 作用机制 链。</span><span class="lang-en">VEGFR2i vs proteasome inhibition — no MoA chain.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=SKLB1002+VEGFR" target="_blank" rel="noopener">Clin Cancer Res 2011 SKLB1002</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>第一层。</p></div>
-        <div><h5>打算怎么做</h5><p>统一板。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>阴性。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">第一层。</span><span class="lang-en">Layer-1.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">统一板。</span><span class="lang-en">Unified plate.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">阴性。</span><span class="lang-en">Negative.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-simvastatin">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：simvastatin</h3>
-        <p class="moa">它在数据集里的作用机制标签：Cholesterol-lowering</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：simvastatin</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Cholesterol-lowering</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：他汀同类聚集。通道补全后的统一空间：出现 Akt 抑制（GSK2110183/afuresertib 类）与 CDK4 工具（arcyriaflavin-a）——相对 statin–actin 已知 cryptic，这两条更像跨靶发现。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：他汀同类聚集。通道补全后的统一空间：出现 Akt 抑制（GSK2110183/afuresertib 类）与 CDK4 工具（arcyriaflavin-a）——相对 statin–actin 已知 cryptic，这两条更像跨靶发现。</span><span class="lang-en">Before: statin cluster. After Intact: Akt inhibitors (GSK2110183 / afuresertib-class) and a CDK4 tool (arcyriaflavin-a) appear — more cryptic / cross-target than the known statin–actin story.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_simvastatin.svg" alt="before-after radial for simvastatin"/></div>
         </figure>
@@ -613,56 +654,58 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>simvastatin <span class="arrow">→</span> GSK2110183 / afuresertib-class (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.527（越小越像） · 文献分级=<b>plausible</b> · 半未知</p>
+          <h4>simvastatin <span class="arrow">→</span> GSK2110183 / afuresertib-class (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.527（越小越像）</span><span class="lang-en">Morphology distance d=0.527 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">半未知</span><span class="lang-en">Semi-unknown</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>statin–Akt/mTOR 共信号 morph，非 HMGCR identity。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">statin–Akt/mTOR 共信号 morph，非 HMGCR identity。</span><span class="lang-en">statin–Akt/mTOR co-signal morphology, not HMGCR identity.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=afuresertib+Akt" target="_blank" rel="noopener">Afuresertib Akt clinical</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=simvastatin+Akt+mTOR" target="_blank" rel="noopener">statin Akt/mTOR cytotoxicity</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>拆开 Rho–actin 臂与 Akt 臂。</p></div>
-        <div><h5>打算怎么做</h5><p>simvastatin ± GGPP ± Akti；p-Akt/p-S6 + phalloidin。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>GGPP 挽救骨架但不完全挽救 Akt 读出（或相反）→ 多臂表型可讲清。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">拆开 Rho–actin 臂与 Akt 臂。</span><span class="lang-en">Separate Rho–actin arm from Akt arm.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">simvastatin ± GGPP ± Akti；p-Akt/p-S6 + phalloidin。</span><span class="lang-en">simvastatin ± GGPP ± Akti; p-Akt/p-S6 + phalloidin.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">GGPP 挽救骨架但不完全挽救 Akt 读出（或相反）→ 多臂表型可讲清。</span><span class="lang-en">GGPP rescues cytoskeleton but not fully Akt readout (or reverse) → multi-arm phenotype can be told cleanly.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>simvastatin <span class="arrow">→</span> arcyriaflavin-a (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.567（越小越像） · 文献分级=<b>plausible</b> · 半未知</p>
+          <h4>simvastatin <span class="arrow">→</span> arcyriaflavin-a (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.567（越小越像）</span><span class="lang-en">Morphology distance d=0.567 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">半未知</span><span class="lang-en">Semi-unknown</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>CDK4 vs statin G1——共享周期 morph、靶点不同。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">CDK4 vs statin G1——共享周期 morph、靶点不同。</span><span class="lang-en">CDK4 vs statin G1 — shared cycle morph, different targets.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=arcyriaflavin+CDK4" target="_blank" rel="noopener">RB&amp;E 2017 arcyriaflavin A CDK4</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>周期重叠是否独立于 actin 表型。</p></div>
-        <div><h5>打算怎么做</h5><p>G1 流式 + F-actin；与 cytochalasin 对照解耦。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>周期像 CDK4i、骨架像他汀 → 盆地而非 identity。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">周期重叠是否独立于 actin 表型。</span><span class="lang-en">Whether cycle overlap is independent of actin phenotype.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">G1 流式 + F-actin；与 cytochalasin 对照解耦。</span><span class="lang-en">G1 flow + F-actin; cytochalasin control to decouple.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">周期像 CDK4i、骨架像他汀 → 盆地而非 identity。</span><span class="lang-en">Cycle like CDK4i, cytoskeleton like statin → basin not identity.</span></p></div>
       </div>
     </article></div>
     </section>
 
     <section class="hub" id="hub-nocodazole">
       <div class="hub-head">
-        <p class="eyebrow">Plausible 射线面板</p>
-        <h3>中心药物：nocodazole</h3>
-        <p class="moa">它在数据集里的作用机制标签：Microtubule destabilizers</p>
+        <p class="eyebrow"><span class="lang-zh">Plausible 射线面板</span><span class="lang-en">Plausible radial panel</span></p>
+        <h3><span class="lang-zh">中心药物</span><span class="lang-en">Query drug</span>：nocodazole</h3>
+        <p class="moa"><span class="lang-zh">它在数据集里的作用机制标签</span><span class="lang-en">Dataset MoA label</span>：Microtubule destabilizers</p>
       </div>
-      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：经典 MT 不稳定剂簇。通道补全后的统一空间：出现 PF-431396——文献提示可能是拮抗（MT 崩→FAK/blebbing；PF 阻断），湿实验应测拮抗而非强行同形。</p>
+      <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后发生了什么：</span><span class="lang-en">What changed before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间：经典 MT 不稳定剂簇。通道补全后的统一空间：出现 PF-431396——文献提示可能是拮抗（MT 崩→FAK/blebbing；PF 阻断），湿实验应测拮抗而非强行同形。</span><span class="lang-en">Before: classic MT-destabilizer cluster. After Intact: PF-431396 appears — literature hints at antagonism (MT collapse → FAK/blebbing; PF blocks it). Wet lab should test antagonism, not force same-shape phenocopy.</span></p>
       
         <figure class="radial-card">
           <figcaption>
-            左：通道补全前，只在同一药物库里找“长得像”的邻居；
-            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
-            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+            <span class="lang-zh">左：通道补全前，只在同一药物库里找“长得像”的邻居；右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。粗绿色射线 = 文献梳理时的焦点边。</span><span class="lang-en">Left: before completion — neighbors only within the same drug library. Right: after completion — neighbors across drug + gene KO + OE libraries. Thick teal rays = literature focus edges.</span>
           </figcaption>
           <div class="radial-frame"><img src="radials/radial_nocodazole.svg" alt="before-after radial for nocodazole"/></div>
         </figure>
@@ -670,199 +713,199 @@
     <article class="edge pri-d0" data-pri="D0">
       <header class="edge-head">
         <div>
-          <h4>nocodazole <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
-          <p class="meta">形态距离 d=0.630（越小越像） · 文献分级=<b>plausible</b> · 方向未实锤（疑拮抗）</p>
+          <h4>nocodazole <span class="arrow">→</span> PF-431396 (CPD)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.630（越小越像）</span><span class="lang-en">Morphology distance d=0.630 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>plausible</b>
+          · <span class="lang-zh">方向未实锤（疑拮抗）</span><span class="lang-en">Direction unsettled (possible antagonism)</span></p>
         </div>
-        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+        <span class="badge pri-d0"><span class="lang-zh">优先深入验证（可能是新发现）</span><span class="lang-en">Priority deep validation (possible new finding)</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>同轴黏附/MT，但可能对抗 blebbing。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">同轴黏附/MT，但可能对抗 blebbing。</span><span class="lang-en">Same adhesion/MT axis, but may oppose blebbing.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+blebbing+FAK+2020" target="_blank" rel="noopener">JCMM 2020 FAK + MDA blebbing / PF-431396</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=nocodazole+FAK+2014" target="_blank" rel="noopener">PLOS One 2014 nocodazole elevates FAK</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>验证拮抗：PF 是否阻断 nocodazole 诱导的 blebbing/圆细胞。</p></div>
-        <div><h5>打算怎么做</h5><p>nocodazole ± PF-431396；相差/免疫荧光成像 计量 blebbing 比例；p-FAK。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>共处理抑制 blebbing → 拮抗故事可发表；若同向加剧 → 重写为同形。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">验证拮抗：PF 是否阻断 nocodazole 诱导的 blebbing/圆细胞。</span><span class="lang-en">Test antagonism: does PF block nocodazole-induced blebbing/round cells?</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">nocodazole ± PF-431396；相差/免疫荧光成像 计量 blebbing 比例；p-FAK。</span><span class="lang-en">nocodazole ± PF-431396; phase/IF quantify blebbing fraction; p-FAK.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">共处理抑制 blebbing → 拮抗故事可发表；若同向加剧 → 重写为同形。</span><span class="lang-en">Combo suppresses blebbing → publishable antagonism; if same-direction worsening → rewrite as same-shape.</span></p></div>
       </div>
     </article></div>
     </section>
 </section>
 
 <section class="block" id="weak">
-  <h2>三、文献几乎说不通的射线（也请先便宜筛一遍）</h2>
+  <h2><span class="lang-zh">三、文献几乎说不通的射线（也请先便宜筛一遍）</span><span class="lang-en">III. Literature-weak rays (still cheap-screen once)</span></h2>
   <p class="sub">
-    这些边更像噪声，或文献暗示方向相反。它们不是“禁止实验”，而是用来估计假阳性，并抓住少数黑马。
+    <span class="lang-zh">这些边更像噪声，或文献暗示方向相反。它们不是“禁止实验”，而是用来估计假阳性，并抓住少数黑马。</span><span class="lang-en">These edges look more like noise, or literature hints opposite direction. Not “forbidden” — use them to estimate false positives and catch rare dark horses.</span>
   </p>
   
         <section class="hub" id="hub-weak">
           <div class="hub-head">
-            <p class="eyebrow">文献支持弱 / 可能是噪声的射线</p>
-            <h3>这些“看起来像、但文献说不通”的邻居</h3>
-            <p class="moa">仍然建议先做便宜筛查：用来估计假阳性，也防止漏掉黑马。</p>
+            <p class="eyebrow"><span class="lang-zh">文献支持弱 / 可能是噪声的射线</span><span class="lang-en">Weak literature support / likely noise rays</span></p>
+            <h3><span class="lang-zh">这些“看起来像、但文献说不通”的邻居</span><span class="lang-en">Neighbors that look alike but literature does not connect</span></h3>
+            <p class="moa"><span class="lang-zh">仍然建议先做便宜筛查：用来估计假阳性，也防止漏掉黑马。</span><span class="lang-en">Still run a cheap screen: estimate false positives and catch dark horses.</span></p>
           </div>
-          <p class="before-after"><strong>补全前 → 补全后：</strong>通道补全前的原始空间→通道补全后的统一空间 后仍出现大量无桥或方向相反的射线（chlorambucil、colchicine、PD-169316、methotrexate、lactacystin、proteasome inhibitor I、lovastatin–BAX-channel 等）。这些不是「不做」，而是发现漏斗的假阳性分母与黑马池。</p>
+          <p class="before-after"><strong><span class="lang-zh">补全前 → 补全后：</span><span class="lang-en">Before → after completion: </span></strong><span class="lang-zh">通道补全前的原始空间→通道补全后的统一空间 后仍出现大量无桥或方向相反的射线（chlorambucil、colchicine、PD-169316、methotrexate、lactacystin、proteasome inhibitor I、lovastatin–BAX-channel 等）。这些不是「不做」，而是发现漏斗的假阳性分母与黑马池。</span><span class="lang-en">After Real→Intact, many rays still lack a mechanistic bridge or look opposite in direction (chlorambucil, colchicine, PD-169316, methotrexate, lactacystin, proteasome inhibitor I, lovastatin–BAX-channel, etc.). These are not “do not test” — they are the false-positive denominator and dark-horse pool for the discovery funnel.</span></p>
           <div class="radial-stack">
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>methotrexate</strong>　（DNA replication）</figcaption>
+                <figure class="radial-card" id="hub-methotrexate">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>methotrexate</strong>
+                  （DNA replication）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_methotrexate.svg" alt="before-after radial for methotrexate"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>bryostatin</strong>　（Kinase inhibitors）</figcaption>
+                <figure class="radial-card" id="hub-bryostatin">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>bryostatin</strong>
+                  （Kinase inhibitors）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_bryostatin.svg" alt="before-after radial for bryostatin"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>PP-2</strong>　（Epithelial）</figcaption>
+                <figure class="radial-card" id="hub-PP-2">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>PP-2</strong>
+                  （Epithelial）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_PP-2.svg" alt="before-after radial for PP-2"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>alsterpaullone</strong>　（Kinase inhibitors）</figcaption>
+                <figure class="radial-card" id="hub-alsterpaullone">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>alsterpaullone</strong>
+                  （Kinase inhibitors）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_alsterpaullone.svg" alt="before-after radial for alsterpaullone"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>PD-169316</strong>　（Kinase inhibitors）</figcaption>
+                <figure class="radial-card" id="hub-PD-169316">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>PD-169316</strong>
+                  （Kinase inhibitors）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_PD-169316.svg" alt="before-after radial for PD-169316"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>MG-132</strong>　（Protein degradation）</figcaption>
+                <figure class="radial-card" id="hub-MG-132">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>MG-132</strong>
+                  （Protein degradation）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_MG-132.svg" alt="before-after radial for MG-132"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>lactacystin</strong>　（Protein degradation）</figcaption>
+                <figure class="radial-card" id="hub-lactacystin">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>lactacystin</strong>
+                  （Protein degradation）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_lactacystin.svg" alt="before-after radial for lactacystin"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>proteasome inhibitor I</strong>　（Protein degradation）</figcaption>
+                <figure class="radial-card" id="hub-proteasome-inhibitor-I">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>proteasome inhibitor I</strong>
+                  （Protein degradation）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_proteasome inhibitor I.svg" alt="before-after radial for proteasome inhibitor I"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>mevinolin/lovastatin</strong>　（Cholesterol-lowering）</figcaption>
+                <figure class="radial-card" id="hub-mevinolin_lovastatin">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>mevinolin/lovastatin</strong>
+                  （Cholesterol-lowering）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_mevinolin_lovastatin.svg" alt="before-after radial for mevinolin/lovastatin"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>chlorambucil</strong>　（DNA damage）</figcaption>
+                <figure class="radial-card" id="hub-chlorambucil">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>chlorambucil</strong>
+                  （DNA damage）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_chlorambucil.svg" alt="before-after radial for chlorambucil"/></div>
                 </figure>
-
-                <figure class="radial-card">
-                  <figcaption>查询药物：<strong>colchicine</strong>　（Microtubule destabilizers）</figcaption>
+                <figure class="radial-card" id="hub-colchicine">
+                  <figcaption><span class="lang-zh">查询药物</span><span class="lang-en">Query drug</span>：<strong>colchicine</strong>
+                  （Microtubule destabilizers）</figcaption>
                   <div class="radial-frame"><img src="radials/radial_colchicine.svg" alt="before-after radial for colchicine"/></div>
                 </figure></div>
           <div class="edges">
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> lactacystin → IGF1R (基因敲除)</h4>
-          <p class="meta">形态距离 d=0.715（越小越像） · 文献分级=<b>weak / opposite</b> · 疑反方向</p>
+          <h4>weak cluster <span class="arrow">→</span> lactacystin → IGF1R (CRI)</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.715（越小越像）</span><span class="lang-en">Morphology distance d=0.715 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak / opposite</b>
+          · <span class="lang-zh">疑反方向</span><span class="lang-en">Likely opposite direction</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>文献：lactacystin 延长 IGF 信号；IGF1R 基因敲除 去除受体——预测与 表型模仿（看起来很像） 相反。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">文献：lactacystin 延长 IGF 信号；IGF1R 基因敲除 去除受体——预测与 表型模仿（看起来很像） 相反。</span><span class="lang-en">Literature: lactacystin prolongs IGF signaling; IGF1R CRI removes the receptor — predicted opposite of phenocopy.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=lactacystin+IRS-1+2000" target="_blank" rel="noopener">Mol Endocrinol 2000 lactacystin IRS-1</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Pollak+IGF1R+Nature+Reviews+Cancer" target="_blank" rel="noopener">Pollak Nat Rev Cancer IGF1R</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>用 p-IGF1R/p-Akt 做方向失败的正面案例。</p></div>
-        <div><h5>打算怎么做</h5><p>lactacystin 处理后测 IGF 通路；与 IGF1R 抑制对照。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>通路方向与「同形」叙事冲突 → 写入补充：邻域≠机制。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">用 p-IGF1R/p-Akt 做方向失败的正面案例。</span><span class="lang-en">Use p-IGF1R/p-Akt as a positive example of directional failure.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">lactacystin 处理后测 IGF 通路；与 IGF1R 抑制对照。</span><span class="lang-en">After lactacystin, measure IGF pathway; compare to IGF1R inhibition.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">通路方向与「同形」叙事冲突 → 写入补充：邻域≠机制。</span><span class="lang-en">Pathway direction conflicts with “same-shape” narrative → supplement: neighborhood ≠ mechanism.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> chlorambucil → PRKCB (基因过表达) 及同 hub 其他 weak</h4>
-          <p class="meta">形态距离 d=0.64–0.67（越小越像） · 文献分级=<b>weak / opposite + none</b> · 疑反方向 + 噪声簇</p>
+          <h4>weak cluster <span class="arrow">→</span> chlorambucil → PRKCB (ORF) 及同 hub 其他 weak</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.64–0.67（越小越像）</span><span class="lang-en">Morphology distance d=0.64–0.67 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak / opposite + none</b>
+          · <span class="lang-zh">疑反方向 + 噪声簇</span><span class="lang-en">Likely opposite + noise cluster</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PKC-β 抑制增敏氯芥；邻居却是 OE。其余 IRL-2500/CACNG1/PTPN2/PLD1 无特异桥。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">PKC-β 抑制增敏氯芥；邻居却是 OE。其余 IRL-2500/CACNG1/PTPN2/PLD1 无特异桥。</span><span class="lang-en">PKC-β inhibition sensitizes to nitrogen mustard; neighbor is OE. Other IRL-2500/CACNG1/PTPN2/PLD1 lack specific bridges.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PKC-beta+chlorambucil+sensitiz" target="_blank" rel="noopener">PKC-β inhibitor + chlorambucil sensitization</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>整簇 第一层；PRKCB 做方向对抗小实验。</p></div>
-        <div><h5>打算怎么做</h5><p>统一板；PRKCB：OE vs PKC-βi 对抗。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>多数阴性；PRKCB 支持 opposite。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">整簇 第一层；PRKCB 做方向对抗小实验。</span><span class="lang-en">Whole-cluster Layer-1; PRKCB as a small direction-opposition experiment.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">统一板；PRKCB：OE vs PKC-βi 对抗。</span><span class="lang-en">Unified plate; PRKCB: OE vs PKC-βi opposition.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">多数阴性；PRKCB 支持 opposite。</span><span class="lang-en">Mostly negative; PRKCB supports opposite.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> colchicine → olanzapine / fenamate / HSD11B1 / xanomeline</h4>
-          <p class="meta">形态距离 d=0.62–0.66（越小越像） · 文献分级=<b>weak</b> · 疑噪声簇</p>
+          <h4>weak cluster <span class="arrow">→</span> colchicine → olanzapine / fenamate / HSD11B1 / xanomeline</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=0.62–0.66（越小越像）</span><span class="lang-en">Morphology distance d=0.62–0.66 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">疑噪声簇</span><span class="lang-en">Likely noise cluster</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>与微管药理无桥。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">与微管药理无桥。</span><span class="lang-en">No bridge to microtubule pharmacology.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120738/" target="_blank" rel="noopener">Colchicine–tubulin PMC7120738</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>假阳性分母；与真 MT 药同板对照。</p></div>
-        <div><h5>打算怎么做</h5><p>第一层；加 nocodazole 阳性对照孔。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>colchicine 邻居无共享 MT 表型。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">假阳性分母；与真 MT 药同板对照。</span><span class="lang-en">False-positive denominator; true MT drugs as same-plate controls.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">第一层；加 nocodazole 阳性对照孔。</span><span class="lang-en">Layer-1; add nocodazole positive-control wells.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">colchicine 邻居无共享 MT 表型。</span><span class="lang-en">colchicine neighbors lack shared MT phenotype.</span></p></div>
       </div>
     </article>
     <article class="edge pri-d1" data-pri="D1">
       <header class="edge-head">
         <div>
-          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> 其他 weak（MTX–HSD11B1、PSI–deferasirox、PD-169316 簇、lovastatin–BAX-channel）</h4>
-          <p class="meta">形态距离 d=不等（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+          <h4>weak cluster <span class="arrow">→</span> 其他 weak（MTX–HSD11B1、PSI–deferasirox、PD-169316 簇、lovastatin–BAX-channel）</h4>
+          <p class="meta"><span class="lang-zh">形态距离 d=不等（越小越像）</span><span class="lang-en">Morphology distance d=不等 (smaller = more similar)</span>
+          · <span class="lang-zh">文献分级</span><span class="lang-en">Literature triage</span>=<b>weak</b>
+          · <span class="lang-zh">未知/疑噪声</span><span class="lang-en">Unknown / likely noise</span></p>
         </div>
-        <span class="badge pri-d1">先做便宜筛查</span>
+        <span class="badge pri-d1"><span class="lang-zh">先做便宜筛查</span><span class="lang-en">Cheap screen first</span></span>
       </header>
-      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无清晰 作用机制 桥或仅应激巧合。</p>
+      <p class="conclusion"><strong><span class="lang-zh">我们现在怎么理解这条边：</span><span class="lang-en">How we read this edge now: </span></strong><span class="lang-zh">无清晰 作用机制 桥或仅应激巧合。</span><span class="lang-en">No clear MoA bridge or only stress coincidence.</span></p>
       <details open>
-        <summary>相关文献（可点击）</summary>
+        <summary><span class="lang-zh">相关文献（可点击）</span><span class="lang-en">Related literature (clickable)</span></summary>
         <ul class="lit"><li><a href="https://doi.org/10.1038/s41592-024-02241-6" target="_blank" rel="noopener">JUMP Cell Painting Nat Methods 2024</a></li></ul>
       </details>
       <div class="trio">
-        <div><h5>要验证什么</h5><p>一次 第一层 扫完，统计阳性率。</p></div>
-        <div><h5>打算怎么做</h5><p>统一 MCF-7 板设计。</p></div>
-        <div><h5>怎样算成功/失败</h5><p>低阳性率；偶发阳性升 优先深入验证。另：lovastatin±GGPP 应力纤维作 已知对照 校准孔（非 BAX 边）。</p></div>
+        <div><h5><span class="lang-zh">要验证什么</span><span class="lang-en">What to test</span></h5><p><span class="lang-zh">一次 第一层 扫完，统计阳性率。</span><span class="lang-en">One Layer-1 sweep; tally positive rate.</span></p></div>
+        <div><h5><span class="lang-zh">打算怎么做</span><span class="lang-en">How to do it</span></h5><p><span class="lang-zh">统一 MCF-7 板设计。</span><span class="lang-en">Unified MCF-7 plate design.</span></p></div>
+        <div><h5><span class="lang-zh">怎样算成功/失败</span><span class="lang-en">Success / failure</span></h5><p><span class="lang-zh">低阳性率；偶发阳性升 优先深入验证。另：lovastatin±GGPP 应力纤维作 已知对照 校准孔（非 BAX 边）。</span><span class="lang-en">Low positive rate; rare positives promote to priority. Also: lovastatin±GGPP stress-fiber as C0 calibration wells (not the BAX edge).</span></p></div>
       </div>
     </article></div>
         </section>
 </section>
 
 <section class="block order" id="plan">
-  <h2>建议开工顺序</h2>
+  <h2><span class="lang-zh">建议开工顺序</span><span class="lang-en">Suggested start order</span></h2>
   <ol>
-    <li>先做<strong>第一层：统一复现细胞染色成像</strong>（尽量覆盖 39 条边 + 对照孔），核对形态邻居是否与补全结论一致。</li>
-    <li>对筛出来的苗头进<strong>第二层：细胞系分子 / 遗传 / 组学验证</strong>，优先：
-      阿斯特保隆酮与微管蛋白基因 TUBB4B；
-      喜树碱/奥罗拉抑制剂与黏着斑激酶工具药；
-      诺考达唑与该工具药是否互相拮抗；
-      苔藓抑素与转录相关激酶/微管蛋白基因；
-      米托蒽醌与核苷酸代谢基因；
-      PP-2 与 FLT3 基因过表达的方向裁决；
-      辛伐他汀与 Akt/细胞周期相关药。
-      目标是写出「形态 + 蛋白/转录/遗传」都能说通的故事。</li>
-    <li>穿插几条<strong>已知对照</strong>（浅做）。</li>
-    <li>最后只挑 <strong>1–2 个顶尖未知发现</strong>上<strong>第三层活体（如小鼠）</strong>。</li>
+    <li><span class="lang-zh">先做第一层：统一复现细胞染色成像（尽量覆盖 39 条边 + 对照孔），核对形态邻居是否与补全结论一致。</span><span class="lang-en">Layer 1 first: uniform Cell Painting redo (cover ~39 edges + controls); check morphology neighbors vs Intact conclusions.</span></li>
+    <li><span class="lang-zh">对筛出来的苗头进第二层：细胞系分子 / 遗传 / 组学验证，优先：阿斯特保隆酮与微管蛋白基因 TUBB4B；喜树碱/奥罗拉抑制剂与黏着斑激酶工具药；诺考达唑与该工具药是否互相拮抗；苔藓抑素与转录相关激酶/微管蛋白基因；米托蒽醌与核苷酸代谢基因；PP-2 与 FLT3 基因过表达的方向裁决；辛伐他汀与 Akt/细胞周期相关药。目标是写出「形态 + 蛋白/转录/遗传」都能说通的故事。</span><span class="lang-en">Promote hits to Layer 2 cell-line molecular / genetic / omics validation, prioritizing: alsterpaullone–TUBB4B; camptothecin/Aurora–FAK tool; nocodazole±FAK tool antagonism; bryostatin–transcriptional CDK / tubulin gene; mitoxantrone–nucleotide metabolism gene; PP-2–FLT3 OE direction; simvastatin–Akt/cycle drugs. Goal: a story coherent in morphology + protein/transcript/genetics.</span></li>
+    <li><span class="lang-zh">穿插几条已知对照（浅做）。</span><span class="lang-en">Interleave a few known controls (shallow).</span></li>
+    <li><span class="lang-zh">最后只挑 1–2 个顶尖未知发现上第三层活体（如小鼠）。</span><span class="lang-en">Finally only 1–2 top unknown discoveries go to Layer 3 in vivo (e.g. mouse).</span></li>
   </ol>
   <p class="sub" style="margin-top:1rem">
-    预算量级参考：第一层成像复现约数万 / 1–2 月；
-    含第二层细胞系验证约 30–50 万 / 8–12 个月；
-    再含 1–2 条活体约 60–100 万以上 / 12–18 个月（视模型而定）。
+    <span class="lang-zh">预算量级参考：第一层成像复现约数万 / 1–2 月；含第二层细胞系验证约 30–50 万 / 8–12 个月；再含 1–2 条活体约 60–100 万以上 / 12–18 个月（视模型而定）。</span><span class="lang-en">Budget ballpark: Layer-1 imaging ~tens of k RMB / 1–2 mo; with Layer-2 cell-line work ~300–500k RMB / 8–12 mo; plus 1–2 in vivo ~600k–1M+ RMB / 12–18 mo (model-dependent).</span>
   </p>
 </section>
 
 <footer class="foot">
-  面向实验执行同事的说明文档。射线图由数据重绘（SVG），不是论文截图。
-  生成脚本：render_radial_svg.py + build_wetlab_site.py。
+  <span class="lang-zh">面向实验执行同事的说明文档。射线图由数据重绘（SVG），不是论文截图。生成脚本：render_radial_svg.py + build_wetlab_site.py。</span><span class="lang-en">Guide for experimental colleagues. Radials are data-redrawn SVGs, not paper screenshots. Generators: render_radial_svg.py + build_wetlab_site.py.</span>
 </footer>
 </main>
 <script src="app.js"></script>

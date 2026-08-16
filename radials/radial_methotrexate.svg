@@ -4,20 +4,20 @@
   <rect width="100%" height="100%" rx="16" fill="#ffffff"/>
   
     <text x="520.0" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#14201f">
-      查询药物：methotrexate
+      Query / 查询药物：methotrexate
     </text>
     <text x="520.0" y="54" text-anchor="middle" font-size="12.5" fill="#5a6b68">
-      作用机制标签：DNA replication　·　射线越短表示形态上越像中心药物　·　右侧名单避免文字挤在图上
+      MoA：DNA replication · shorter ray = more similar · ranked list on the right
     </text>
   <rect x="24" y="72" width="490" height="430" rx="14" fill="#f7faf9" stroke="#e2ebe7"/>
-<text x="42" y="100" font-size="15" font-weight="700" fill="#14201f">补全前</text>
-<text x="42" y="120" font-size="11" fill="#5a6b68">只在同一个药物图像库里找“长得像”的邻居</text>
+<text x="42" y="98" font-size="15" font-weight="700" fill="#14201f">补全前 · Before</text>
+<text x="42" y="118" font-size="11" fill="#5a6b68">Same drug library only · 只在同一药物库找邻居</text>
 <circle cx="154" cy="247" r="33.2" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="154" cy="247" r="61.8" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="154" cy="247" r="95.0" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="154" cy="247" r="9" fill="#14201f"/>
 <text x="154" y="251" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">中心</text>
-<text x="274" y="136" font-size="11" font-weight="650" fill="#5a6b68">按相似程度排序（距离越小越像）</text>
+<text x="274" y="136" font-size="11" font-weight="650" fill="#5a6b68">Ranked · 距离越小越像</text>
 <line x1="154" y1="247" x2="154.0" y2="176.3" stroke="#9aada7" stroke-width="1.15" stroke-linecap="round"/>
 <circle cx="154.0" cy="176.3" r="6" fill="#334155"/>
 <text x="154.0" y="179.5" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">1</text>
@@ -49,14 +49,14 @@
 <text x="286" y="295" font-size="12.5" font-weight="550" fill="#14201f">#5  floxuridine</text>
 <text x="286" y="309" font-size="10.5" fill="#5a6b68">同库药物 · 形态距离 0.72</text>
   <rect x="526" y="72" width="490" height="430" rx="14" fill="#f7faf9" stroke="#e2ebe7"/>
-<text x="544" y="100" font-size="15" font-weight="700" fill="#14201f">补全后</text>
-<text x="544" y="120" font-size="11" fill="#5a6b68">在药物 + 基因敲除 + 基因过表达的联合空间里找邻居</text>
+<text x="544" y="98" font-size="15" font-weight="700" fill="#14201f">补全后 · After</text>
+<text x="544" y="118" font-size="11" fill="#5a6b68">Drug + KO + OE joint space · 药物+敲除+过表达联合空间</text>
 <circle cx="656" cy="247" r="33.2" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="656" cy="247" r="61.8" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="656" cy="247" r="95.0" fill="none" stroke="#d0ddd8" stroke-width="1.2"/>
 <circle cx="656" cy="247" r="9" fill="#14201f"/>
 <text x="656" y="251" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">中心</text>
-<text x="776" y="136" font-size="11" font-weight="650" fill="#5a6b68">按相似程度排序（距离越小越像）</text>
+<text x="776" y="136" font-size="11" font-weight="650" fill="#5a6b68">Ranked · 距离越小越像</text>
 <line x1="656" y1="247" x2="656.0" y2="162.5" stroke="#9aada7" stroke-width="1.15" stroke-linecap="round"/>
 <circle cx="656.0" cy="162.5" r="6" fill="#334155"/>
 <text x="656.0" y="165.7" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">1</text>
