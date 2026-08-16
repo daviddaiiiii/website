@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>通道补全之后的跨库邻居：湿实验验证路线图</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@500;600&family=Sora:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <div class="brand">湿实验验证路线图</div>
+  <div class="nav-links">
+    <a href="#why">这是在干什么</a>
+    <a href="#tiers">怎么分步验证</a>
+    <a href="#strong">较强证据</a>
+    <a href="#plausible">待验证发现</a>
+    <a href="#weak">弱证据筛查</a>
+    <a href="#plan">建议开工顺序</a>
+  </div>
+</div></nav>
+
+<main class="wrap">
+<header class="hero" id="why">
+  <h1>通道补全之后，跨数据集的“长得像”的药和基因，哪些值得做实验？</h1>
+  <p class="hero-lead">
+    我们有多套显微镜细胞图像数据。有的主要是<strong>加药</strong>，有的还包含<strong>敲掉某个基因</strong>或<strong>过表达某个基因</strong>。
+    因为荧光通道不齐，以前很难公平比较。把缺失通道补全（我们叫它「统一空间」）之后，
+    可以在同一套形态特征里问：<em>这个药在形态上最像谁？</em>
+    如果它突然很像另一个数据集里的药或基因扰动，就画出一条「邻居边」。
+    本页告诉实验同事：这些边里，哪些像已知故事、哪些可能是新发现、具体怎么验证、怎样算做成了。
+  </p>
+
+  <aside class="glossary">
+    <h2>先看懂这些词（后文尽量写全称）</h2>
+    <dl>
+      <dt>射线图 / 邻居图</dt>
+      <dd>圆心是查询药物。周围最多 5 个点是形态上最像它的邻居。射线越短，距离越小，越像。</dd>
+      <dt>补全前（左边）</dt>
+      <dd>只在同一个药物图像库里找邻居，通道还不齐，跨库很难比。</dd>
+      <dt>补全后（右边）</dt>
+      <dd>通道补齐后，可以在「药物 + 基因敲除 + 基因过表达」的联合空间里找邻居。</dd>
+      <dt>形态距离 d</dt>
+      <dd>数字越小越像。它不是化学结构相似度，而是细胞形态特征的相似度。</dd>
+      <dt>药物扰动 / 基因敲除 / 基因过表达</dt>
+      <dd>三种扰动方式。文献说“同方向”时才更像真正的机制联系；方向反了可能只是碰巧长得像。</dd>
+      <dt>三种实验优先级</dt>
+      <dd><strong>优先深入验证</strong>＝可能是新发现，值得认真做；
+      <strong>先做便宜筛查</strong>＝先统一低成本看一眼；
+      <strong>已知对照，浅做即可</strong>＝用来证明方法靠谱，不是主发现。</dd>
+    </dl>
+  </aside>
+
+  <div class="pills">
+    <span class="pill d0">优先深入验证</span>
+    <span class="pill d1">先做便宜筛查</span>
+    <span class="pill c0">已知对照，浅做即可</span>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>11</b><span>条：优先深入验证</span></div>
+    <div class="stat"><b>10</b><span>条：先做便宜筛查</span></div>
+    <div class="stat"><b>3</b><span>条：已知对照</span></div>
+    <div class="stat"><b>39</b><span>条跨库候选边（总计）</span></div>
+  </div>
+</header>
+
+<section class="block" id="tiers">
+  <h2>建议怎么分步做实验</h2>
+  <p class="sub">
+    三层漏斗：先统一复现细胞染色成像，确认形态邻居站得住；
+    再在细胞系上用遗传与组学手段证明「不只是长得像」；
+    最后只挑 1–2 个顶尖发现上活体。
+  </p>
+  <div class="callout">
+    文献里说的“方向一致 / 方向相反”只是阅读论文后的判断，<strong>不是实验实锤</strong>。
+    弱证据边也建议进第一层成像复现，用来统计“形态上像、但复现不像”的比例。
+  </div>
+
+  <article class="tier">
+    <h3>第一层：全员统一复现细胞染色成像（形态邻居复核）</h3>
+    <div class="cols">
+      <div><h5>要验证什么</h5><p>在同一套细胞染色成像条件下，补全后找出的跨库邻居，是否真的和中心药物“长得像”。这一层主要核对：形态邻居结论能不能在湿实验里站稳。</p></div>
+      <div><h5>打算怎么做</h5><p>尽量覆盖全部候选边。用与药物库一致的乳腺癌细胞系（如 MCF-7）。每个化合物先测活力曲线，选大约只明显影响 10%–30% 细胞的剂量，避免大片死亡造成假象。处理约 24 小时后做多通道细胞染色成像，与溶剂对照、一个已知阳性药、一个预期无关药同板比较。</p></div>
+      <div><h5>怎样算成功/失败</h5><p>形态上仍靠近中心药的边进入第二层；多数弱证据边应偏阴性（阴性同样有用，用来写假阳性率）。意外阳性的弱边升为优先深入。大约 3–6 周，材料费约几万元人民币量级。</p></div>
+    </div>
+  </article>
+
+  <article class="tier">
+    <h3>第二层：细胞系上的分子 / 遗传验证（突出“不只是形态”）</h3>
+    <div class="cols">
+      <div><h5>要验证什么</h5><p>这些表型邻居是否在基因组、转录组、蛋白组层面也有联系——而不只是显微镜下长得像。重点裁决：真表型模仿、同一大类压力、互相拮抗，还是方向说反了。</p></div>
+      <div><h5>打算怎么做</h5><p>仍在细胞系完成。按各边条文做蛋白质印迹、免疫荧光、细胞周期流式、共处理或挽救；用小干扰 RNA / 过表达等遗传扰动钉通路。有条件时补转录组或蛋白组，把“组学上能说通”写进故事。稳定基因编辑敲除可作为本层加强项，但不必当成最终台阶。</p></div>
+      <div><h5>怎样算成功/失败</h5><p>1 到若干条边能讲清「形态 + 分子/遗传」小故事即可；做出来不像也请保留——说明形态邻居不等于同一机制。大约再加 2–4 个月。</p></div>
+    </div>
+  </article>
+
+  <article class="tier">
+    <h3>第三层：只对顶尖 1–2 个发现做活体验证</h3>
+    <div class="cols">
+      <div><h5>要验证什么</h5><p>细胞系里站得住的最强未知发现，在小鼠等活体模型里是否仍有表型或药效/毒性可读出。这一层贵、慢，只能挑极少几条。</p></div>
+      <div><h5>打算怎么做</h5><p>从第二层筛出的 top 命中里选 1–2 个；按具体故事选合适肿瘤或药理模型（给药、敲低/敲除株、或二者联用）。读出侧重肿瘤生长、组织病理、关键通路标记——与细胞系结论对齐。</p></div>
+      <div><h5>怎样算成功/失败</h5><p>活体方向与细胞系故事一致，或出现可解释差异。这是冲高影响力文章的收束证据，周期与预算单独单列，往往还要数月。</p></div>
+    </div>
+  </article>
+
+  <article class="tier">
+    <h3>已知对照：浅做几条就够</h3>
+    <div class="cols">
+      <div><h5>要验证什么</h5><p>证明邻居检索不是只会挖噪声，也能抓住文献里已经比较清楚的关系。</p></div>
+      <div><h5>打算怎么做</h5><p>例如：喜树碱与奥罗拉激酶抑制剂/氟达拉滨的细胞周期重叠；PP-2 与凋亡蛋白 caspase-3 活化；洛伐他汀加回甲羟戊酸或香叶基香叶基焦磷酸后应力纤维恢复。嵌在第一、二层里浅做即可。</p></div>
+      <div><h5>怎样算成功/失败</h5><p>按文献预期出现阳性即可，各做一小块图，不要扩写成“新发现”。</p></div>
+    </div>
+  </article>
+</section>
+
+<div class="filters" aria-label="按优先级筛选">
+  <button type="button" class="active" data-filter="all">显示全部候选边</button>
+  <button type="button" data-filter="D0">只看：优先深入验证</button>
+  <button type="button" data-filter="D1">只看：先做便宜筛查</button>
+  <button type="button" data-filter="C0">只看：已知对照</button>
+</div>
+
+<section class="block" id="strong">
+  <h2>一、文献支持较强的射线（先用来建立信心）</h2>
+  <p class="sub">
+    下面每个中心药物都重新画了「补全前 | 补全后」邻居图（不是截图）。
+    绿色粗线标出的是文献梳理时的焦点边。注意：同一中心药物周围，也可能混着更值得当新发现去挖的边。
+  </p>
+  
+    <section class="hub" id="hub-camptothecin">
+      <div class="hub-head">
+        <p class="eyebrow">Strong 射线面板（兼含同 hub 的 plausible 邻居）</p>
+        <h3>中心药物：camptothecin</h3>
+        <p class="moa">它在数据集里的作用机制标签：DNA replication</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间（BBBC药物图像库-only）：邻居多为 BBBC药物图像库 化学药（如 AZ841、etoposide 等）。通道补全后的统一空间（BBBC药物图像库+CPG基因与药物扰动库）：射线翻向 CPG基因与药物扰动库 化合物 danusertib / fludarabine-phosphate / PF-431396，距离更近，出现跨库药–药桥。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_camptothecin.svg" alt="before-after radial for camptothecin"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-c0" data-pri="C0">
+      <header class="edge-head">
+        <div>
+          <h4>camptothecin <span class="arrow">→</span> danusertib (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.577（越小越像） · 文献分级=<b>strong</b> · 已知盆地（校准用）</p>
+        </div>
+        <span class="badge pri-c0">已知对照，浅做即可</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Topo I poison 与 pan-Aurora 抑制共享 细胞分裂前的周期停滞阶段 / mitotic-stress 形态；属方向匹配的化学 表型模仿（看起来很像），文献充分，不宜作为「未知发现」主菜。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/29774099/" target="_blank" rel="noopener">PMID:29774099 CPT→G2/M</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/18089710/" target="_blank" rel="noopener">Carpinelli et al. danusertib / PHA-739358 综述脉络</a></li><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6010685/" target="_blank" rel="noopener">Hep3B danusertib G2/M proteomics PMC6010685</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>证明 通道补全后的统一空间 检索到的跨库药–药邻居至少包含已知可复现的周期应激盆地。</p></div>
+        <div><h5>打算怎么做</h5><p>MCF-7；CPT 与 danusertib 各自剂量–反应曲线（细胞活力检测）取 大约杀死或抑制10%–30%细胞的剂量（亚致死）；固定时间点（如 24 h）流式细胞周期（PI）+ p-Histone H3 免疫荧光成像/蛋白质印迹检测；可选 DNA损伤标记。同板设 溶剂对照 与 1 个非周期负对照药。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>两者均升高 细胞分裂前的周期停滞阶段 与/或 有丝分裂标记蛋白（磷酸化组蛋白H3）；重叠度高则支持 表型模仿（看起来很像）。若仅死亡而无周期签名，降低剂量重做。此边不扩展机制故事。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-c0" data-pri="C0">
+      <header class="edge-head">
+        <div>
+          <h4>camptothecin <span class="arrow">→</span> fludarabine-phosphate (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.592（越小越像） · 文献分级=<b>strong</b> · 已知盆地（校准用）</p>
+        </div>
+        <span class="badge pri-c0">已知对照，浅做即可</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>CPT 与 fludarabine 均干扰 DNA 合成/复制叉，属匹配的化学方向。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/11888330/" target="_blank" rel="noopener">PMID:11888330 fludarabine / DNA</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/10064605/" target="_blank" rel="noopener">PMID:10064605 CPT replication damage</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/7513216/" target="_blank" rel="noopener">Huang &amp; Plunkett fludarabine 综述脉络 (Leuk Lymphoma 1994)</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>第二校准：复制应激类药–药邻居可复现。</p></div>
+        <div><h5>打算怎么做</h5><p>同 CPT–danusertib 设计；读出侧重 DNA损伤标记 / EdU 掺入抑制 + 周期。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>共享复制应激/周期阻滞签名；用于方法可信度，不作新靶点宣称。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>camptothecin <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.607（越小越像） · 文献分级=<b>plausible</b> · 未知 / 少直接文献（发现主菜）</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>FAK/PYK2 抑制与 DNA/有丝分裂应激药共现于 通道补全后的统一空间 邻域；无直接 CPT–FAK 表型模仿（看起来很像） 论文——这是需要湿实验裁决的闯入边。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/18559653/" target="_blank" rel="noopener">PF-431396 FAK/PYK2 工具化合物说明（Tocris/供应商页可核）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=camptothecin+FAK" target="_blank" rel="noopener">弱/间接 CPT–FAK 文献（检索起点）</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>检验「复制应激药 ↔ FAK 抑制」是同形、共盆地，还是噪声。</p></div>
+        <div><h5>打算怎么做</h5><p>CPT vs PF-431396 vs 合用；读出：细胞形态/圆度、p-FAK(Y397) 免疫荧光成像/蛋白质印迹检测、划痕或 Transwell 迁移、周期与 DNA损伤标记（与 strong 边同板对照）。可选 FAK 过表达或 constitutively active FAK 挽救。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>若同形：两者共享黏着斑解聚/圆细胞 + 部分周期重叠。若仅盆地：周期签名像 CPT，黏着斑签名像 PF，重叠有限。若噪声：表型正交。任一清晰结果均可写入发现 可写进论文的小故事案例。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-PP-2">
+      <div class="hub-head">
+        <p class="eyebrow">Strong 射线面板</p>
+        <h3>中心药物：PP-2</h3>
+        <p class="moa">它在数据集里的作用机制标签：Epithelial / Src-family</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：邻居散落在 BBBC药物图像库 化学空间（秋水仙碱、他汀、latrunculin 等）。通道补全后的统一空间：top-5 几乎全是 CPG基因与药物扰动库-基因过表达（FLT3、HRH4、CASP3、CYP3A4、AVPR1A），整簇「闯入」遗传过表达空间——除 CASP3 外多为未知或方向可疑。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_PP-2.svg" alt="before-after radial for PP-2"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-c0" data-pri="C0">
+      <header class="edge-head">
+        <div>
+          <h4>PP-2 <span class="arrow">→</span> CASP3 (基因过表达)</h4>
+          <p class="meta">形态距离 d=0.500（越小越像） · 文献分级=<b>strong</b> · 已知方向匹配（校准）</p>
+        </div>
+        <span class="badge pri-c0">已知对照，浅做即可</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PP2 诱导 caspase-3/8 活化；CASP3 OE 与凋亡 morph 同向（GOF）。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Src" target="_blank" rel="noopener">Carcinogenesis 2012 PP2→caspase（检索）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Oncol+Lett" target="_blank" rel="noopener">Oncol Lett 2018 PP2↑caspase-3</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>校准「药→基因活性升高 ↔ 基因过表达」方向规则。</p></div>
+        <div><h5>打算怎么做</h5><p>PP2 剂量窗；cleaved-CASP3 免疫荧光成像/蛋白质印迹检测、Annexin V；可选 CASP3 OE 并列。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>PP2 升 cleaved-CASP3；OE 部分 表型模仿（看起来很像）。浅层即可。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>PP-2 <span class="arrow">→</span> FLT3 (基因过表达)</h4>
+          <p class="meta">形态距离 d=0.443（越小越像） · 文献分级=<b>plausible</b> · 半未知（方向未实锤）</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>文献常描述 Src/Lyn 在 FLT3 下游且多共抑制；邻居却是 FLT3 OE。可能是 RTK/Src 邻域，而非 OE 表型模仿（看起来很像）——必须用实验裁决方向。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Lyn+FLT3-ITD+PP2" target="_blank" rel="noopener">Blood 2008 Lyn/FLT3-ITD（PP2 相关检索）</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=FLT3+signaling+review" target="_blank" rel="noopener">FLT3 signaling reviews</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>判定 PP2 形态更接近 FLT3 OE、FLT3 抑制，还是无关。</p></div>
+        <div><h5>打算怎么做</h5><p>PP2 vs FLT3i（如 quizartinib/gilteritinib 工具剂量）vs FLT3 配体刺激；有条件则 FLT3 OE / KD 与药并排；读出：形态 + p-FLT3/p-Src。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>若 OE 表型模仿（看起来很像）：OE≈PP2，抑制则相反。若共抑制盆地：FLT3i≈PP2，OE 不像。清晰二分即可成为方向方法学 + 生物学 可写进论文的小故事案例。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>PP-2 <span class="arrow">→</span> HRH4 / CYP3A4 / AVPR1A (基因过表达)</h4>
+          <p class="meta">形态距离 d=0.48–0.53（越小越像） · 文献分级=<b>weak</b> · 未知（疑噪声，须筛）</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无可靠 Src–H4 / CYP3A4 / AVPR1A 作用机制 桥；现判噪声候选。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/25082669/" target="_blank" rel="noopener">PMID:25082669 PP2→AhR/CYP1A1</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=HRH4+review" target="_blank" rel="noopener">HRH4 GPCR reviews</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>第一层 全员筛：估假阳性；意外阳性则升 优先深入验证。</p></div>
+        <div><h5>打算怎么做</h5><p>与 PP2 同板统一形态/活力终点；不做深度机制，除非阳性。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>多数阴性；阴性写入假阳性分母。若阳性，再开靶点特异读出。</p></div>
+      </div>
+    </article></div>
+    </section>
+</section>
+
+<section class="block" id="plausible">
+  <h2>二、说得通但还没实锤的射线（发现主战场）</h2>
+  <p class="sub">
+    这里往往有通路线索，但“是不是同一种机制、方向对不对”还需要实验裁决。
+    <strong>请把主要时间和预算放在这一部分。</strong>
+  </p>
+  
+    <section class="hub" id="hub-mitoxantrone">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：mitoxantrone</h3>
+        <p class="moa">它在数据集里的作用机制标签：DNA replication</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：主要落在 BBBC药物图像库 DNA 损伤/复制药邻域。通道补全后的统一空间：出现 CPG基因与药物扰动库-基因过表达 邻居 IMPDH1、CCND1——化学锚点连到核苷酸/周期遗传空间。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_mitoxantrone.svg" alt="before-after radial for mitoxantrone"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>mitoxantrone <span class="arrow">→</span> IMPDH1 (基因过表达)</h4>
+          <p class="meta">形态距离 d=0.571（越小越像） · 文献分级=<b>plausible</b> · 半未知（抑制 lit vs OE 邻居）</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>IMPDH 轴真实，但文献中心是抑制→GTP 耗竭；邻居是 OE（常耐药）。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9375230/" target="_blank" rel="noopener">IMPDH gateway PMC9375230</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=IMPDH2+overexpression+chemoresistance" target="_blank" rel="noopener">IMPDH2 OE chemoresistance PLoS One 2010</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>用四组比较裁决谁才是 mitoxantrone 的 morph 表型模仿（看起来很像）。</p></div>
+        <div><h5>打算怎么做</h5><p>mitoxantrone vs MPA/AVN-944（IMPDH 抑制）vs IMPDH1 OE vs IMPDH1 KD；读出：核仁/形态、GTP 相关应激代理、周期。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>若抑制≈mito 而 OE 不像 → 方向 mismatch 成立但仍有盆地；若 OE≈mito → 需重写机制假说。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>mitoxantrone <span class="arrow">→</span> CCND1 (基因过表达)</h4>
+          <p class="meta">形态距离 d=0.650（越小越像） · 文献分级=<b>plausible</b> · 盆地</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Topo II 应激与 CCND1 OE 共享增殖/周期空间，非同向 作用机制。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=mitoxantrone+topoisomerase+II+review" target="_blank" rel="noopener">Mitoxantrone Topo II reviews</a></li><li><a href="https://www.ncbi.nlm.nih.gov/gene/595" target="_blank" rel="noopener">NCBI Gene CCND1</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>浅层周期重叠测量；阳性有限则不升主菜。</p></div>
+        <div><h5>打算怎么做</h5><p>周期流式 + cyclin 先做便宜筛查 免疫荧光成像；与 mito 并排。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>部分 G1/S 重叠但非 identity。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-AZ841">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：AZ841</h3>
+        <p class="moa">它在数据集里的作用机制标签：Aurora kinase inhibitors</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：多落在 Aurora/有丝分裂相关 BBBC药物图像库 邻域。通道补全后的统一空间：与 CPT 类似地拉近 fludarabine 与 PF-431396——跨 作用机制 cryptic 候选。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_AZ841.svg" alt="before-after radial for AZ841"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>AZ841 <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.603（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无 AZ841–PF431396 专文；与 CPT 共享 FAK 邻居，适合三角验证。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Aurora+kinase+inhibitor+mitosis+review" target="_blank" rel="noopener">Aurora mitotic reviews</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+FAK" target="_blank" rel="noopener">PF-431396 FAK/PYK2</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>与 CPT–PF 设计对齐，检验 Aurora–FAK–DNA stress 三角。</p></div>
+        <div><h5>打算怎么做</h5><p>同 CPT–PF 读出；三药两两相关矩阵（形态特征相关或人工评分）。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>若 CPT 与 AZ841 均近 PF → 跨 作用机制 FAK 盆地可发表；否则边降权。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>AZ841 <span class="arrow">→</span> fludarabine-phosphate (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.642（越小越像） · 文献分级=<b>plausible</b> · 弱已知盆地</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>Aurora + DNA 合成毒共占 细胞分裂前的周期停滞阶段 盆地（弱于 CPT 对）。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://doi.org/10.1177/1087057113503553" target="_blank" rel="noopener">BBBC021 MoA 设定 Ljosa 2013</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>浅层周期重叠。</p></div>
+        <div><h5>打算怎么做</h5><p>细胞分裂前的周期停滞阶段 流式并列。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>中等重叠即可。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-bryostatin">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：bryostatin</h3>
+        <p class="moa">它在数据集里的作用机制标签：Kinase inhibitors (PKC)</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：偏 PKC/激酶工具药邻域。通道补全后的统一空间：focal 指向 CDK7、TUBB4B 等遗传扰动——文献仅有盆地，无 表型模仿（看起来很像），发现潜力高。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_bryostatin.svg" alt="before-after radial for bryostatin"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>bryostatin <span class="arrow">→</span> CDK7 (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.618（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>bryostatin/PKC 与转录 CDK 有交叉，但不是已验证的 CDK7 LOF 表型模仿（看起来很像）。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+PKC+NF-kB+Scientific+Reports+2015" target="_blank" rel="noopener">Sci Rep 2015 bryostatin PKC/NF-κB</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=CDK7+transcription+review" target="_blank" rel="noopener">CDK7 transcriptional CDK reviews</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>检验 bryostatin 是否 表型模仿（看起来很像） CDK7 抑制/敲低。</p></div>
+        <div><h5>打算怎么做</h5><p>bryostatin vs CDK7i（如 THZ1 低剂量谨慎）/ CDK7 小干扰RNA敲低；RNAPII CTD p-Ser2/5；形态。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>同向→新药–基因主张；反向或无关→降为盆地/噪声。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>bryostatin <span class="arrow">→</span> TUBB4B (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.632（越小越像） · 文献分级=<b>plausible</b> · 未知</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PKC–细胞骨架重塑 vs β-tubulin/纤毛 MT LOF。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+ciliopathy+2023" target="_blank" rel="noopener">Science 2023 TUBB4B ciliopathy</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+cytoskeleton" target="_blank" rel="noopener">Bryostatin cytoskeleton reviews</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>MT/纤毛相关表型是否共享。</p></div>
+        <div><h5>打算怎么做</h5><p>α/β-tubulin、Ac-tubulin 免疫荧光成像；TUBB4B 小干扰RNA敲低 与药并排。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>共享 MT 紊乱模式则升 可写进论文的小故事案例；否则弱化。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>bryostatin <span class="arrow">→</span> JTE-013 (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.675（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>S1P2 拮抗 vs bryostatin；无清晰桥。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=JTE-013+S1P2" target="_blank" rel="noopener">JTE-013 S1P2</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>第一层 噪声估计。</p></div>
+        <div><h5>打算怎么做</h5><p>同板统一终点。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>阴性为主。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-alsterpaullone">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：alsterpaullone</h3>
+        <p class="moa">它在数据集里的作用机制标签：Kinase inhibitors</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：落在 paullone/CDK 工具邻域。通道补全后的统一空间：拉近 TUBB4B 基因编辑敲除——报告已标 wet-lab candidate，未知度高、成像读出相对简单。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_alsterpaullone.svg" alt="before-after radial for alsterpaullone"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>alsterpaullone <span class="arrow">→</span> TUBB4B (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.573（越小越像） · 文献分级=<b>plausible</b> · 未知（首选发现）</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>paullone 抑 GSK-3β/CDK5→tau/MAP；邻居 TUBB4B LOF 共享 MT 盆地，未验证 表型模仿（看起来很像）。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=paullones+GSK-3+CDK5+2000" target="_blank" rel="noopener">Eur J Biochem 2000 paullones GSK-3β/CDK5</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+Science+2023" target="_blank" rel="noopener">Science 2023 TUBB4B</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=paullone+podocyte+microtubule" target="_blank" rel="noopener">AJP Renal 2018 paullones podocyte MT</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>坐实或否定「CDK/GSK3 药 ↔ β-tubulin 基因 LOF」闯入联系。</p></div>
+        <div><h5>打算怎么做</h5><p>alsterpaullone 剂量窗；α/β-tubulin + Ac-tubulin 免疫荧光成像 定量；TUBB4B 小干扰RNA敲低/shRNA 并列；可选 tau-p Ser/Thr 蛋白质印迹检测。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>若药≈KD 的 MT 表型 → 发现主图候选；若仅部分重叠 → 盆地叙事；无关 → 降权。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>alsterpaullone <span class="arrow">→</span> DCK / HRH4 (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.61–0.63（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>与 paullone 药理几乎无桥。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=deoxycytidine+kinase+review" target="_blank" rel="noopener">DCK reviews</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>第一层。</p></div>
+        <div><h5>打算怎么做</h5><p>统一板。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>阴性。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-MG-132">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：MG-132</h3>
+        <p class="moa">它在数据集里的作用机制标签：Protein degradation</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：蛋白酶体抑制同类邻域。通道补全后的统一空间：出现 BRD4 基因敲除 等——文献是 UPS 上位性/救援，不是 morph 表型模仿（看起来很像）；湿实验要换问题。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_MG-132.svg" alt="before-after radial for MG-132"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>MG-132 <span class="arrow">→</span> BRD4 (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.594（越小越像） · 文献分级=<b>plausible</b> · 机制已知但易误读</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>MG132 救援 BRD4 degrader——证明依赖，≠ MG132 morph = BRD4-KO。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=ARV-825+MG132" target="_blank" rel="noopener">Chem Biol 2015 ARV-825+MG132</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=MZ1+MG132+BRD4" target="_blank" rel="noopener">ACS Chem Biol MZ1+MG132</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=IBG1+MG132+BRD4+2024" target="_blank" rel="noopener">Nature 2024 IBG1+MG132（检索）</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>用正确问题产出可发表结果：依赖/救援 ± 形态是否真同。</p></div>
+        <div><h5>打算怎么做</h5><p>臂 A：BRD4 degrader ± MG132，蛋白质印迹检测 看 BRD4 蛋白救援；臂 B：BRD4 KD/基因敲除 代理 vs MG132 形态相关——预期可能不一致，诚实报告。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>臂 A 阳性几乎必然；臂 B 若阴性，正好说明「邻域≠同 作用机制」，方法论上很有价值。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>MG-132 <span class="arrow">→</span> SKLB1002 (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.576（越小越像） · 文献分级=<b>weak</b> · 疑噪声</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>VEGFR2i vs 蛋白酶体抑制，无 作用机制 链。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=SKLB1002+VEGFR" target="_blank" rel="noopener">Clin Cancer Res 2011 SKLB1002</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>第一层。</p></div>
+        <div><h5>打算怎么做</h5><p>统一板。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>阴性。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-simvastatin">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：simvastatin</h3>
+        <p class="moa">它在数据集里的作用机制标签：Cholesterol-lowering</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：他汀同类聚集。通道补全后的统一空间：出现 Akt 抑制（GSK2110183/afuresertib 类）与 CDK4 工具（arcyriaflavin-a）——相对 statin–actin 已知 cryptic，这两条更像跨靶发现。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_simvastatin.svg" alt="before-after radial for simvastatin"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>simvastatin <span class="arrow">→</span> GSK2110183 / afuresertib-class (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.527（越小越像） · 文献分级=<b>plausible</b> · 半未知</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>statin–Akt/mTOR 共信号 morph，非 HMGCR identity。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=afuresertib+Akt" target="_blank" rel="noopener">Afuresertib Akt clinical</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=simvastatin+Akt+mTOR" target="_blank" rel="noopener">statin Akt/mTOR cytotoxicity</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>拆开 Rho–actin 臂与 Akt 臂。</p></div>
+        <div><h5>打算怎么做</h5><p>simvastatin ± GGPP ± Akti；p-Akt/p-S6 + phalloidin。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>GGPP 挽救骨架但不完全挽救 Akt 读出（或相反）→ 多臂表型可讲清。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>simvastatin <span class="arrow">→</span> arcyriaflavin-a (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.567（越小越像） · 文献分级=<b>plausible</b> · 半未知</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>CDK4 vs statin G1——共享周期 morph、靶点不同。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=arcyriaflavin+CDK4" target="_blank" rel="noopener">RB&amp;E 2017 arcyriaflavin A CDK4</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>周期重叠是否独立于 actin 表型。</p></div>
+        <div><h5>打算怎么做</h5><p>G1 流式 + F-actin；与 cytochalasin 对照解耦。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>周期像 CDK4i、骨架像他汀 → 盆地而非 identity。</p></div>
+      </div>
+    </article></div>
+    </section>
+
+    <section class="hub" id="hub-nocodazole">
+      <div class="hub-head">
+        <p class="eyebrow">Plausible 射线面板</p>
+        <h3>中心药物：nocodazole</h3>
+        <p class="moa">它在数据集里的作用机制标签：Microtubule destabilizers</p>
+      </div>
+      <p class="before-after"><strong>补全前 → 补全后发生了什么：</strong>通道补全前的原始空间：经典 MT 不稳定剂簇。通道补全后的统一空间：出现 PF-431396——文献提示可能是拮抗（MT 崩→FAK/blebbing；PF 阻断），湿实验应测拮抗而非强行同形。</p>
+      
+        <figure class="radial-card">
+          <figcaption>
+            左：通道补全前，只在同一药物库里找“长得像”的邻居；
+            右：通道补全后，可以在药物库 + 基因扰动库里一起找邻居。
+            粗绿色射线 = 我们文献梳理时特别关注的焦点边。
+          </figcaption>
+          <div class="radial-frame"><img src="radials/radial_nocodazole.svg" alt="before-after radial for nocodazole"/></div>
+        </figure>
+      <div class="edges">
+    <article class="edge pri-d0" data-pri="D0">
+      <header class="edge-head">
+        <div>
+          <h4>nocodazole <span class="arrow">→</span> PF-431396 (药物扰动)</h4>
+          <p class="meta">形态距离 d=0.630（越小越像） · 文献分级=<b>plausible</b> · 方向未实锤（疑拮抗）</p>
+        </div>
+        <span class="badge pri-d0">优先深入验证（可能是新发现）</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>同轴黏附/MT，但可能对抗 blebbing。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+blebbing+FAK+2020" target="_blank" rel="noopener">JCMM 2020 FAK + MDA blebbing / PF-431396</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=nocodazole+FAK+2014" target="_blank" rel="noopener">PLOS One 2014 nocodazole elevates FAK</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>验证拮抗：PF 是否阻断 nocodazole 诱导的 blebbing/圆细胞。</p></div>
+        <div><h5>打算怎么做</h5><p>nocodazole ± PF-431396；相差/免疫荧光成像 计量 blebbing 比例；p-FAK。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>共处理抑制 blebbing → 拮抗故事可发表；若同向加剧 → 重写为同形。</p></div>
+      </div>
+    </article></div>
+    </section>
+</section>
+
+<section class="block" id="weak">
+  <h2>三、文献几乎说不通的射线（也请先便宜筛一遍）</h2>
+  <p class="sub">
+    这些边更像噪声，或文献暗示方向相反。它们不是“禁止实验”，而是用来估计假阳性，并抓住少数黑马。
+  </p>
+  
+        <section class="hub" id="hub-weak">
+          <div class="hub-head">
+            <p class="eyebrow">文献支持弱 / 可能是噪声的射线</p>
+            <h3>这些“看起来像、但文献说不通”的邻居</h3>
+            <p class="moa">仍然建议先做便宜筛查：用来估计假阳性，也防止漏掉黑马。</p>
+          </div>
+          <p class="before-after"><strong>补全前 → 补全后：</strong>通道补全前的原始空间→通道补全后的统一空间 后仍出现大量无桥或方向相反的射线（chlorambucil、colchicine、PD-169316、methotrexate、lactacystin、proteasome inhibitor I、lovastatin–BAX-channel 等）。这些不是「不做」，而是发现漏斗的假阳性分母与黑马池。</p>
+          <div class="radial-stack">
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>methotrexate</strong>　（DNA replication）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_methotrexate.svg" alt="before-after radial for methotrexate"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>bryostatin</strong>　（Kinase inhibitors）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_bryostatin.svg" alt="before-after radial for bryostatin"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>PP-2</strong>　（Epithelial）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_PP-2.svg" alt="before-after radial for PP-2"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>alsterpaullone</strong>　（Kinase inhibitors）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_alsterpaullone.svg" alt="before-after radial for alsterpaullone"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>PD-169316</strong>　（Kinase inhibitors）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_PD-169316.svg" alt="before-after radial for PD-169316"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>MG-132</strong>　（Protein degradation）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_MG-132.svg" alt="before-after radial for MG-132"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>lactacystin</strong>　（Protein degradation）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_lactacystin.svg" alt="before-after radial for lactacystin"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>proteasome inhibitor I</strong>　（Protein degradation）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_proteasome inhibitor I.svg" alt="before-after radial for proteasome inhibitor I"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>mevinolin/lovastatin</strong>　（Cholesterol-lowering）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_mevinolin_lovastatin.svg" alt="before-after radial for mevinolin/lovastatin"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>chlorambucil</strong>　（DNA damage）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_chlorambucil.svg" alt="before-after radial for chlorambucil"/></div>
+                </figure>
+
+                <figure class="radial-card">
+                  <figcaption>查询药物：<strong>colchicine</strong>　（Microtubule destabilizers）</figcaption>
+                  <div class="radial-frame"><img src="radials/radial_colchicine.svg" alt="before-after radial for colchicine"/></div>
+                </figure></div>
+          <div class="edges">
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> lactacystin → IGF1R (基因敲除)</h4>
+          <p class="meta">形态距离 d=0.715（越小越像） · 文献分级=<b>weak / opposite</b> · 疑反方向</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>文献：lactacystin 延长 IGF 信号；IGF1R 基因敲除 去除受体——预测与 表型模仿（看起来很像） 相反。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=lactacystin+IRS-1+2000" target="_blank" rel="noopener">Mol Endocrinol 2000 lactacystin IRS-1</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Pollak+IGF1R+Nature+Reviews+Cancer" target="_blank" rel="noopener">Pollak Nat Rev Cancer IGF1R</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>用 p-IGF1R/p-Akt 做方向失败的正面案例。</p></div>
+        <div><h5>打算怎么做</h5><p>lactacystin 处理后测 IGF 通路；与 IGF1R 抑制对照。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>通路方向与「同形」叙事冲突 → 写入补充：邻域≠机制。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> chlorambucil → PRKCB (基因过表达) 及同 hub 其他 weak</h4>
+          <p class="meta">形态距离 d=0.64–0.67（越小越像） · 文献分级=<b>weak / opposite + none</b> · 疑反方向 + 噪声簇</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>PKC-β 抑制增敏氯芥；邻居却是 OE。其余 IRL-2500/CACNG1/PTPN2/PLD1 无特异桥。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://pubmed.ncbi.nlm.nih.gov/?term=PKC-beta+chlorambucil+sensitiz" target="_blank" rel="noopener">PKC-β inhibitor + chlorambucil sensitization</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>整簇 第一层；PRKCB 做方向对抗小实验。</p></div>
+        <div><h5>打算怎么做</h5><p>统一板；PRKCB：OE vs PKC-βi 对抗。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>多数阴性；PRKCB 支持 opposite。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> colchicine → olanzapine / fenamate / HSD11B1 / xanomeline</h4>
+          <p class="meta">形态距离 d=0.62–0.66（越小越像） · 文献分级=<b>weak</b> · 疑噪声簇</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>与微管药理无桥。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120738/" target="_blank" rel="noopener">Colchicine–tubulin PMC7120738</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>假阳性分母；与真 MT 药同板对照。</p></div>
+        <div><h5>打算怎么做</h5><p>第一层；加 nocodazole 阳性对照孔。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>colchicine 邻居无共享 MT 表型。</p></div>
+      </div>
+    </article>
+    <article class="edge pri-d1" data-pri="D1">
+      <header class="edge-head">
+        <div>
+          <h4>Weak 面板 hubs（合并） <span class="arrow">→</span> 其他 weak（MTX–HSD11B1、PSI–deferasirox、PD-169316 簇、lovastatin–BAX-channel）</h4>
+          <p class="meta">形态距离 d=不等（越小越像） · 文献分级=<b>weak</b> · 未知/疑噪声</p>
+        </div>
+        <span class="badge pri-d1">先做便宜筛查</span>
+      </header>
+      <p class="conclusion"><strong>我们现在怎么理解这条边：</strong>无清晰 作用机制 桥或仅应激巧合。</p>
+      <details open>
+        <summary>相关文献（可点击）</summary>
+        <ul class="lit"><li><a href="https://doi.org/10.1038/s41592-024-02241-6" target="_blank" rel="noopener">JUMP Cell Painting Nat Methods 2024</a></li></ul>
+      </details>
+      <div class="trio">
+        <div><h5>要验证什么</h5><p>一次 第一层 扫完，统计阳性率。</p></div>
+        <div><h5>打算怎么做</h5><p>统一 MCF-7 板设计。</p></div>
+        <div><h5>怎样算成功/失败</h5><p>低阳性率；偶发阳性升 优先深入验证。另：lovastatin±GGPP 应力纤维作 已知对照 校准孔（非 BAX 边）。</p></div>
+      </div>
+    </article></div>
+        </section>
+</section>
+
+<section class="block order" id="plan">
+  <h2>建议开工顺序</h2>
+  <ol>
+    <li>先做<strong>第一层：统一复现细胞染色成像</strong>（尽量覆盖 39 条边 + 对照孔），核对形态邻居是否与补全结论一致。</li>
+    <li>对筛出来的苗头进<strong>第二层：细胞系分子 / 遗传 / 组学验证</strong>，优先：
+      阿斯特保隆酮与微管蛋白基因 TUBB4B；
+      喜树碱/奥罗拉抑制剂与黏着斑激酶工具药；
+      诺考达唑与该工具药是否互相拮抗；
+      苔藓抑素与转录相关激酶/微管蛋白基因；
+      米托蒽醌与核苷酸代谢基因；
+      PP-2 与 FLT3 基因过表达的方向裁决；
+      辛伐他汀与 Akt/细胞周期相关药。
+      目标是写出「形态 + 蛋白/转录/遗传」都能说通的故事。</li>
+    <li>穿插几条<strong>已知对照</strong>（浅做）。</li>
+    <li>最后只挑 <strong>1–2 个顶尖未知发现</strong>上<strong>第三层活体（如小鼠）</strong>。</li>
+  </ol>
+  <p class="sub" style="margin-top:1rem">
+    预算量级参考：第一层成像复现约数万 / 1–2 月；
+    含第二层细胞系验证约 30–50 万 / 8–12 个月；
+    再含 1–2 条活体约 60–100 万以上 / 12–18 个月（视模型而定）。
+  </p>
+</section>
+
+<footer class="foot">
+  面向实验执行同事的说明文档。射线图由数据重绘（SVG），不是论文截图。
+  生成脚本：render_radial_svg.py + build_wetlab_site.py。
+</footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+[
+  {
+    "query": "camptothecin",
+    "moa": "DNA replication",
+    "file": "radial_camptothecin.svg",
+    "scores": [
+      "plausible",
+      "strong"
+    ]
+  },
+  {
+    "query": "mitoxantrone",
+    "moa": "DNA replication",
+    "file": "radial_mitoxantrone.svg",
+    "scores": [
+      "plausible"
+    ]
+  },
+  {
+    "query": "methotrexate",
+    "moa": "DNA replication",
+    "file": "radial_methotrexate.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "AZ841",
+    "moa": "Aurora kinase inhibitors",
+    "file": "radial_AZ841.svg",
+    "scores": [
+      "plausible"
+    ]
+  },
+  {
+    "query": "bryostatin",
+    "moa": "Kinase inhibitors",
+    "file": "radial_bryostatin.svg",
+    "scores": [
+      "plausible",
+      "weak"
+    ]
+  },
+  {
+    "query": "PP-2",
+    "moa": "Epithelial",
+    "file": "radial_PP-2.svg",
+    "scores": [
+      "plausible",
+      "strong",
+      "weak"
+    ]
+  },
+  {
+    "query": "alsterpaullone",
+    "moa": "Kinase inhibitors",
+    "file": "radial_alsterpaullone.svg",
+    "scores": [
+      "plausible",
+      "weak"
+    ]
+  },
+  {
+    "query": "PD-169316",
+    "moa": "Kinase inhibitors",
+    "file": "radial_PD-169316.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "MG-132",
+    "moa": "Protein degradation",
+    "file": "radial_MG-132.svg",
+    "scores": [
+      "plausible",
+      "weak"
+    ]
+  },
+  {
+    "query": "lactacystin",
+    "moa": "Protein degradation",
+    "file": "radial_lactacystin.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "proteasome inhibitor I",
+    "moa": "Protein degradation",
+    "file": "radial_proteasome inhibitor I.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "simvastatin",
+    "moa": "Cholesterol-lowering",
+    "file": "radial_simvastatin.svg",
+    "scores": [
+      "plausible"
+    ]
+  },
+  {
+    "query": "mevinolin/lovastatin",
+    "moa": "Cholesterol-lowering",
+    "file": "radial_mevinolin_lovastatin.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "chlorambucil",
+    "moa": "DNA damage",
+    "file": "radial_chlorambucil.svg",
+    "scores": [
+      "weak"
+    ]
+  },
+  {
+    "query": "nocodazole",
+    "moa": "Microtubule destabilizers",
+    "file": "radial_nocodazole.svg",
+    "scores": [
+      "plausible"
+    ]
+  },
+  {
+    "query": "colchicine",
+    "moa": "Microtubule destabilizers",
+    "file": "radial_colchicine.svg",
+    "scores": [
+      "weak"
+    ]
+  }
+]

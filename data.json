@@ -1,0 +1,570 @@
+[
+  {
+    "name": "camptothecin",
+    "moa": "DNA replication",
+    "panel": "Strong 射线面板（兼含同 hub 的 plausible 邻居）",
+    "before_after": "Real（BBBC-only）：邻居多为 BBBC 化学药（如 AZ841、etoposide 等）。Intact（BBBC+CPG）：射线翻向 CPG 化合物 danusertib / fludarabine-phosphate / PF-431396，距离更近，出现跨库药–药桥。",
+    "edges": [
+      {
+        "spoke": "danusertib (CPD)",
+        "d": "0.577",
+        "triage": "strong",
+        "novelty": "已知盆地（校准用）",
+        "conclusion": "Topo I poison 与 pan-Aurora 抑制共享 G2/M / mitotic-stress 形态；属方向匹配的化学 phenocopy，文献充分，不宜作为「未知发现」主菜。",
+        "lit": [
+          [
+            "PMID:29774099 CPT→G2/M",
+            "https://pubmed.ncbi.nlm.nih.gov/29774099/"
+          ],
+          [
+            "Carpinelli et al. danusertib / PHA-739358 综述脉络",
+            "https://pubmed.ncbi.nlm.nih.gov/18089710/"
+          ],
+          [
+            "Hep3B danusertib G2/M proteomics PMC6010685",
+            "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6010685/"
+          ]
+        ],
+        "pri": "C0",
+        "purpose": "证明 Intact 检索到的跨库药–药邻居至少包含已知可复现的周期应激盆地。",
+        "methods": "MCF-7；CPT 与 danusertib 各自剂量–反应曲线（CCK8）取 IC10–IC30；固定时间点（如 24 h）流式细胞周期（PI）+ p-Histone H3 IF/WB；可选 γH2AX。同板设 DMSO 与 1 个非周期负对照药。",
+        "expected": "两者均升高 G2/M 与/或 p-H3；重叠度高则支持 phenocopy。若仅死亡而无周期签名，降低剂量重做。此边不扩展机制故事。"
+      },
+      {
+        "spoke": "fludarabine-phosphate (CPD)",
+        "d": "0.592",
+        "triage": "strong",
+        "novelty": "已知盆地（校准用）",
+        "conclusion": "CPT 与 fludarabine 均干扰 DNA 合成/复制叉，属匹配的化学方向。",
+        "lit": [
+          [
+            "PMID:11888330 fludarabine / DNA",
+            "https://pubmed.ncbi.nlm.nih.gov/11888330/"
+          ],
+          [
+            "PMID:10064605 CPT replication damage",
+            "https://pubmed.ncbi.nlm.nih.gov/10064605/"
+          ],
+          [
+            "Huang & Plunkett fludarabine 综述脉络 (Leuk Lymphoma 1994)",
+            "https://pubmed.ncbi.nlm.nih.gov/7513216/"
+          ]
+        ],
+        "pri": "C0",
+        "purpose": "第二校准：复制应激类药–药邻居可复现。",
+        "methods": "同 CPT–danusertib 设计；读出侧重 γH2AX / EdU 掺入抑制 + 周期。",
+        "expected": "共享复制应激/周期阻滞签名；用于方法可信度，不作新靶点宣称。"
+      },
+      {
+        "spoke": "PF-431396 (CPD)",
+        "d": "0.607",
+        "triage": "plausible",
+        "novelty": "未知 / 少直接文献（发现主菜）",
+        "conclusion": "FAK/PYK2 抑制与 DNA/有丝分裂应激药共现于 Intact 邻域；无直接 CPT–FAK phenocopy 论文——这是需要湿实验裁决的闯入边。",
+        "lit": [
+          [
+            "PF-431396 FAK/PYK2 工具化合物说明（Tocris/供应商页可核）",
+            "https://pubmed.ncbi.nlm.nih.gov/18559653/"
+          ],
+          [
+            "弱/间接 CPT–FAK 文献（检索起点）",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=camptothecin+FAK"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "检验「复制应激药 ↔ FAK 抑制」是同形、共盆地，还是噪声。",
+        "methods": "CPT vs PF-431396 vs 合用；读出：细胞形态/圆度、p-FAK(Y397) IF/WB、划痕或 Transwell 迁移、周期与 γH2AX（与 strong 边同板对照）。可选 FAK 过表达或 constitutively active FAK 挽救。",
+        "expected": "若同形：两者共享黏着斑解聚/圆细胞 + 部分周期重叠。若仅盆地：周期签名像 CPT，黏着斑签名像 PF，重叠有限。若噪声：表型正交。任一清晰结果均可写入发现 vignette。"
+      }
+    ]
+  },
+  {
+    "name": "PP-2",
+    "moa": "Epithelial / Src-family",
+    "panel": "Strong 射线面板",
+    "before_after": "Real：邻居散落在 BBBC 化学空间（秋水仙碱、他汀、latrunculin 等）。Intact：top-5 几乎全是 CPG-ORF（FLT3、HRH4、CASP3、CYP3A4、AVPR1A），整簇「闯入」遗传过表达空间——除 CASP3 外多为未知或方向可疑。",
+    "edges": [
+      {
+        "spoke": "CASP3 (ORF)",
+        "d": "0.500",
+        "triage": "strong",
+        "novelty": "已知方向匹配（校准）",
+        "conclusion": "PP2 诱导 caspase-3/8 活化；CASP3 OE 与凋亡 morph 同向（GOF）。",
+        "lit": [
+          [
+            "Carcinogenesis 2012 PP2→caspase（检索）",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Src"
+          ],
+          [
+            "Oncol Lett 2018 PP2↑caspase-3",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=PP2+caspase-3+Oncol+Lett"
+          ]
+        ],
+        "pri": "C0",
+        "purpose": "校准「药→基因活性升高 ↔ ORF」方向规则。",
+        "methods": "PP2 剂量窗；cleaved-CASP3 IF/WB、Annexin V；可选 CASP3 OE 并列。",
+        "expected": "PP2 升 cleaved-CASP3；OE 部分 phenocopy。浅层即可。"
+      },
+      {
+        "spoke": "FLT3 (ORF)",
+        "d": "0.443",
+        "triage": "plausible",
+        "novelty": "半未知（方向未实锤）",
+        "conclusion": "文献常描述 Src/Lyn 在 FLT3 下游且多共抑制；邻居却是 FLT3 OE。可能是 RTK/Src 邻域，而非 OE phenocopy——必须用实验裁决方向。",
+        "lit": [
+          [
+            "Blood 2008 Lyn/FLT3-ITD（PP2 相关检索）",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=Lyn+FLT3-ITD+PP2"
+          ],
+          [
+            "FLT3 signaling reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=FLT3+signaling+review"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "判定 PP2 形态更接近 FLT3 OE、FLT3 抑制，还是无关。",
+        "methods": "PP2 vs FLT3i（如 quizartinib/gilteritinib 工具剂量）vs FLT3 配体刺激；有条件则 FLT3 OE / KD 与药并排；读出：形态 + p-FLT3/p-Src。",
+        "expected": "若 OE phenocopy：OE≈PP2，抑制则相反。若共抑制盆地：FLT3i≈PP2，OE 不像。清晰二分即可成为方向方法学 + 生物学 vignette。"
+      },
+      {
+        "spoke": "HRH4 / CYP3A4 / AVPR1A (ORF)",
+        "d": "0.48–0.53",
+        "triage": "weak",
+        "novelty": "未知（疑噪声，须筛）",
+        "conclusion": "无可靠 Src–H4 / CYP3A4 / AVPR1A MoA 桥；现判噪声候选。",
+        "lit": [
+          [
+            "PMID:25082669 PP2→AhR/CYP1A1",
+            "https://pubmed.ncbi.nlm.nih.gov/25082669/"
+          ],
+          [
+            "HRH4 GPCR reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=HRH4+review"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "Tier-0 全员筛：估假阳性；意外阳性则升 D0。",
+        "methods": "与 PP2 同板统一形态/活力终点；不做深度机制，除非阳性。",
+        "expected": "多数阴性；阴性写入假阳性分母。若阳性，再开靶点特异读出。"
+      }
+    ]
+  },
+  {
+    "name": "mitoxantrone",
+    "moa": "DNA replication",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：主要落在 BBBC DNA 损伤/复制药邻域。Intact：出现 CPG-ORF 邻居 IMPDH1、CCND1——化学锚点连到核苷酸/周期遗传空间。",
+    "edges": [
+      {
+        "spoke": "IMPDH1 (ORF)",
+        "d": "0.571",
+        "triage": "plausible",
+        "novelty": "半未知（抑制 lit vs OE 邻居）",
+        "conclusion": "IMPDH 轴真实，但文献中心是抑制→GTP 耗竭；邻居是 OE（常耐药）。",
+        "lit": [
+          [
+            "IMPDH gateway PMC9375230",
+            "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9375230/"
+          ],
+          [
+            "IMPDH2 OE chemoresistance PLoS One 2010",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=IMPDH2+overexpression+chemoresistance"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "用四组比较裁决谁才是 mitoxantrone 的 morph phenocopy。",
+        "methods": "mitoxantrone vs MPA/AVN-944（IMPDH 抑制）vs IMPDH1 OE vs IMPDH1 KD；读出：核仁/形态、GTP 相关应激代理、周期。",
+        "expected": "若抑制≈mito 而 OE 不像 → 方向 mismatch 成立但仍有盆地；若 OE≈mito → 需重写机制假说。"
+      },
+      {
+        "spoke": "CCND1 (ORF)",
+        "d": "0.650",
+        "triage": "plausible",
+        "novelty": "盆地",
+        "conclusion": "Topo II 应激与 CCND1 OE 共享增殖/周期空间，非同向 MoA。",
+        "lit": [
+          [
+            "Mitoxantrone Topo II reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=mitoxantrone+topoisomerase+II+review"
+          ],
+          [
+            "NCBI Gene CCND1",
+            "https://www.ncbi.nlm.nih.gov/gene/595"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "浅层周期重叠测量；阳性有限则不升主菜。",
+        "methods": "周期流式 + cyclin D1 IF；与 mito 并排。",
+        "expected": "部分 G1/S 重叠但非 identity。"
+      }
+    ]
+  },
+  {
+    "name": "AZ841",
+    "moa": "Aurora kinase inhibitors",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：多落在 Aurora/有丝分裂相关 BBBC 邻域。Intact：与 CPT 类似地拉近 fludarabine 与 PF-431396——跨 MoA cryptic 候选。",
+    "edges": [
+      {
+        "spoke": "PF-431396 (CPD)",
+        "d": "0.603",
+        "triage": "plausible",
+        "novelty": "未知",
+        "conclusion": "无 AZ841–PF431396 专文；与 CPT 共享 FAK 邻居，适合三角验证。",
+        "lit": [
+          [
+            "Aurora mitotic reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=Aurora+kinase+inhibitor+mitosis+review"
+          ],
+          [
+            "PF-431396 FAK/PYK2",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+FAK"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "与 CPT–PF 设计对齐，检验 Aurora–FAK–DNA stress 三角。",
+        "methods": "同 CPT–PF 读出；三药两两相关矩阵（形态特征相关或人工评分）。",
+        "expected": "若 CPT 与 AZ841 均近 PF → 跨 MoA FAK 盆地可发表；否则边降权。"
+      },
+      {
+        "spoke": "fludarabine-phosphate (CPD)",
+        "d": "0.642",
+        "triage": "plausible",
+        "novelty": "弱已知盆地",
+        "conclusion": "Aurora + DNA 合成毒共占 G2/M 盆地（弱于 CPT 对）。",
+        "lit": [
+          [
+            "BBBC021 MoA 设定 Ljosa 2013",
+            "https://doi.org/10.1177/1087057113503553"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "浅层周期重叠。",
+        "methods": "G2/M 流式并列。",
+        "expected": "中等重叠即可。"
+      }
+    ]
+  },
+  {
+    "name": "bryostatin",
+    "moa": "Kinase inhibitors (PKC)",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：偏 PKC/激酶工具药邻域。Intact：focal 指向 CDK7、TUBB4B 等遗传扰动——文献仅有盆地，无 phenocopy，发现潜力高。",
+    "edges": [
+      {
+        "spoke": "CDK7 (CRI)",
+        "d": "0.618",
+        "triage": "plausible",
+        "novelty": "未知",
+        "conclusion": "bryostatin/PKC 与转录 CDK 有交叉，但不是已验证的 CDK7 LOF phenocopy。",
+        "lit": [
+          [
+            "Sci Rep 2015 bryostatin PKC/NF-κB",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+PKC+NF-kB+Scientific+Reports+2015"
+          ],
+          [
+            "CDK7 transcriptional CDK reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=CDK7+transcription+review"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "检验 bryostatin 是否 phenocopy CDK7 抑制/敲低。",
+        "methods": "bryostatin vs CDK7i（如 THZ1 低剂量谨慎）/ CDK7 siRNA；RNAPII CTD p-Ser2/5；形态。",
+        "expected": "同向→新药–基因主张；反向或无关→降为盆地/噪声。"
+      },
+      {
+        "spoke": "TUBB4B (CRI)",
+        "d": "0.632",
+        "triage": "plausible",
+        "novelty": "未知",
+        "conclusion": "PKC–细胞骨架重塑 vs β-tubulin/纤毛 MT LOF。",
+        "lit": [
+          [
+            "Science 2023 TUBB4B ciliopathy",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+ciliopathy+2023"
+          ],
+          [
+            "Bryostatin cytoskeleton reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=bryostatin+cytoskeleton"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "MT/纤毛相关表型是否共享。",
+        "methods": "α/β-tubulin、Ac-tubulin IF；TUBB4B siRNA 与药并排。",
+        "expected": "共享 MT 紊乱模式则升 vignette；否则弱化。"
+      },
+      {
+        "spoke": "JTE-013 (CPD)",
+        "d": "0.675",
+        "triage": "weak",
+        "novelty": "未知/疑噪声",
+        "conclusion": "S1P2 拮抗 vs bryostatin；无清晰桥。",
+        "lit": [
+          [
+            "JTE-013 S1P2",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=JTE-013+S1P2"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "Tier-0 噪声估计。",
+        "methods": "同板统一终点。",
+        "expected": "阴性为主。"
+      }
+    ]
+  },
+  {
+    "name": "alsterpaullone",
+    "moa": "Kinase inhibitors",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：落在 paullone/CDK 工具邻域。Intact：拉近 TUBB4B CRISPR——报告已标 wet-lab candidate，未知度高、成像读出相对简单。",
+    "edges": [
+      {
+        "spoke": "TUBB4B (CRI)",
+        "d": "0.573",
+        "triage": "plausible",
+        "novelty": "未知（首选发现）",
+        "conclusion": "paullone 抑 GSK-3β/CDK5→tau/MAP；邻居 TUBB4B LOF 共享 MT 盆地，未验证 phenocopy。",
+        "lit": [
+          [
+            "Eur J Biochem 2000 paullones GSK-3β/CDK5",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=paullones+GSK-3+CDK5+2000"
+          ],
+          [
+            "Science 2023 TUBB4B",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=TUBB4B+Science+2023"
+          ],
+          [
+            "AJP Renal 2018 paullones podocyte MT",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=paullone+podocyte+microtubule"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "坐实或否定「CDK/GSK3 药 ↔ β-tubulin 基因 LOF」闯入联系。",
+        "methods": "alsterpaullone 剂量窗；α/β-tubulin + Ac-tubulin IF 定量；TUBB4B siRNA/shRNA 并列；可选 tau-p Ser/Thr WB。",
+        "expected": "若药≈KD 的 MT 表型 → 发现主图候选；若仅部分重叠 → 盆地叙事；无关 → 降权。"
+      },
+      {
+        "spoke": "DCK / HRH4 (CRI)",
+        "d": "0.61–0.63",
+        "triage": "weak",
+        "novelty": "未知/疑噪声",
+        "conclusion": "与 paullone 药理几乎无桥。",
+        "lit": [
+          [
+            "DCK reviews",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=deoxycytidine+kinase+review"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "Tier-0。",
+        "methods": "统一板。",
+        "expected": "阴性。"
+      }
+    ]
+  },
+  {
+    "name": "MG-132",
+    "moa": "Protein degradation",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：蛋白酶体抑制同类邻域。Intact：出现 BRD4 CRI 等——文献是 UPS 上位性/救援，不是 morph phenocopy；湿实验要换问题。",
+    "edges": [
+      {
+        "spoke": "BRD4 (CRI)",
+        "d": "0.594",
+        "triage": "plausible",
+        "novelty": "机制已知但易误读",
+        "conclusion": "MG132 救援 BRD4 degrader——证明依赖，≠ MG132 morph = BRD4-KO。",
+        "lit": [
+          [
+            "Chem Biol 2015 ARV-825+MG132",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=ARV-825+MG132"
+          ],
+          [
+            "ACS Chem Biol MZ1+MG132",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=MZ1+MG132+BRD4"
+          ],
+          [
+            "Nature 2024 IBG1+MG132（检索）",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=IBG1+MG132+BRD4+2024"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "用正确问题产出可发表结果：依赖/救援 ± 形态是否真同。",
+        "methods": "臂 A：BRD4 degrader ± MG132，WB 看 BRD4 蛋白救援；臂 B：BRD4 KD/CRI 代理 vs MG132 形态相关——预期可能不一致，诚实报告。",
+        "expected": "臂 A 阳性几乎必然；臂 B 若阴性，正好说明「邻域≠同 MoA」，方法论上很有价值。"
+      },
+      {
+        "spoke": "SKLB1002 (CPD)",
+        "d": "0.576",
+        "triage": "weak",
+        "novelty": "疑噪声",
+        "conclusion": "VEGFR2i vs 蛋白酶体抑制，无 MoA 链。",
+        "lit": [
+          [
+            "Clin Cancer Res 2011 SKLB1002",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=SKLB1002+VEGFR"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "Tier-0。",
+        "methods": "统一板。",
+        "expected": "阴性。"
+      }
+    ]
+  },
+  {
+    "name": "simvastatin",
+    "moa": "Cholesterol-lowering",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：他汀同类聚集。Intact：出现 Akt 抑制（GSK2110183/afuresertib 类）与 CDK4 工具（arcyriaflavin-a）——相对 statin–actin 已知 cryptic，这两条更像跨靶发现。",
+    "edges": [
+      {
+        "spoke": "GSK2110183 / afuresertib-class (CPD)",
+        "d": "0.527",
+        "triage": "plausible",
+        "novelty": "半未知",
+        "conclusion": "statin–Akt/mTOR 共信号 morph，非 HMGCR identity。",
+        "lit": [
+          [
+            "Afuresertib Akt clinical",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=afuresertib+Akt"
+          ],
+          [
+            "statin Akt/mTOR cytotoxicity",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=simvastatin+Akt+mTOR"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "拆开 Rho–actin 臂与 Akt 臂。",
+        "methods": "simvastatin ± GGPP ± Akti；p-Akt/p-S6 + phalloidin。",
+        "expected": "GGPP 挽救骨架但不完全挽救 Akt 读出（或相反）→ 多臂表型可讲清。"
+      },
+      {
+        "spoke": "arcyriaflavin-a (CPD)",
+        "d": "0.567",
+        "triage": "plausible",
+        "novelty": "半未知",
+        "conclusion": "CDK4 vs statin G1——共享周期 morph、靶点不同。",
+        "lit": [
+          [
+            "RB&E 2017 arcyriaflavin A CDK4",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=arcyriaflavin+CDK4"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "周期重叠是否独立于 actin 表型。",
+        "methods": "G1 流式 + F-actin；与 cytochalasin 对照解耦。",
+        "expected": "周期像 CDK4i、骨架像他汀 → 盆地而非 identity。"
+      }
+    ]
+  },
+  {
+    "name": "nocodazole",
+    "moa": "Microtubule destabilizers",
+    "panel": "Plausible 射线面板",
+    "before_after": "Real：经典 MT 不稳定剂簇。Intact：出现 PF-431396——文献提示可能是拮抗（MT 崩→FAK/blebbing；PF 阻断），湿实验应测拮抗而非强行同形。",
+    "edges": [
+      {
+        "spoke": "PF-431396 (CPD)",
+        "d": "0.630",
+        "triage": "plausible",
+        "novelty": "方向未实锤（疑拮抗）",
+        "conclusion": "同轴黏附/MT，但可能对抗 blebbing。",
+        "lit": [
+          [
+            "JCMM 2020 FAK + MDA blebbing / PF-431396",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=PF-431396+blebbing+FAK+2020"
+          ],
+          [
+            "PLOS One 2014 nocodazole elevates FAK",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=nocodazole+FAK+2014"
+          ]
+        ],
+        "pri": "D0",
+        "purpose": "验证拮抗：PF 是否阻断 nocodazole 诱导的 blebbing/圆细胞。",
+        "methods": "nocodazole ± PF-431396；相差/IF 计量 blebbing 比例；p-FAK。",
+        "expected": "共处理抑制 blebbing → 拮抗故事可发表；若同向加剧 → 重写为同形。"
+      }
+    ]
+  },
+  {
+    "name": "Weak 面板 hubs（合并）",
+    "moa": "多 MoA",
+    "panel": "Weak 射线面板",
+    "before_after": "Real→Intact 后仍出现大量无桥或方向相反的射线（chlorambucil、colchicine、PD-169316、methotrexate、lactacystin、proteasome inhibitor I、lovastatin–BAX-channel 等）。这些不是「不做」，而是发现漏斗的假阳性分母与黑马池。",
+    "edges": [
+      {
+        "spoke": "lactacystin → IGF1R (CRI)",
+        "d": "0.715",
+        "triage": "weak / opposite",
+        "novelty": "疑反方向",
+        "conclusion": "文献：lactacystin 延长 IGF 信号；IGF1R CRI 去除受体——预测与 phenocopy 相反。",
+        "lit": [
+          [
+            "Mol Endocrinol 2000 lactacystin IRS-1",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=lactacystin+IRS-1+2000"
+          ],
+          [
+            "Pollak Nat Rev Cancer IGF1R",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=Pollak+IGF1R+Nature+Reviews+Cancer"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "用 p-IGF1R/p-Akt 做方向失败的正面案例。",
+        "methods": "lactacystin 处理后测 IGF 通路；与 IGF1R 抑制对照。",
+        "expected": "通路方向与「同形」叙事冲突 → 写入补充：邻域≠机制。"
+      },
+      {
+        "spoke": "chlorambucil → PRKCB (ORF) 及同 hub 其他 weak",
+        "d": "0.64–0.67",
+        "triage": "weak / opposite + none",
+        "novelty": "疑反方向 + 噪声簇",
+        "conclusion": "PKC-β 抑制增敏氯芥；邻居却是 OE。其余 IRL-2500/CACNG1/PTPN2/PLD1 无特异桥。",
+        "lit": [
+          [
+            "PKC-β inhibitor + chlorambucil sensitization",
+            "https://pubmed.ncbi.nlm.nih.gov/?term=PKC-beta+chlorambucil+sensitiz"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "整簇 Tier-0；PRKCB 做方向对抗小实验。",
+        "methods": "统一板；PRKCB：OE vs PKC-βi 对抗。",
+        "expected": "多数阴性；PRKCB 支持 opposite。"
+      },
+      {
+        "spoke": "colchicine → olanzapine / fenamate / HSD11B1 / xanomeline",
+        "d": "0.62–0.66",
+        "triage": "weak",
+        "novelty": "疑噪声簇",
+        "conclusion": "与微管药理无桥。",
+        "lit": [
+          [
+            "Colchicine–tubulin PMC7120738",
+            "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7120738/"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "假阳性分母；与真 MT 药同板对照。",
+        "methods": "Tier-0；加 nocodazole 阳性对照孔。",
+        "expected": "colchicine 邻居无共享 MT 表型。"
+      },
+      {
+        "spoke": "其他 weak（MTX–HSD11B1、PSI–deferasirox、PD-169316 簇、lovastatin–BAX-channel）",
+        "d": "不等",
+        "triage": "weak",
+        "novelty": "未知/疑噪声",
+        "conclusion": "无清晰 MoA 桥或仅应激巧合。",
+        "lit": [
+          [
+            "JUMP Cell Painting Nat Methods 2024",
+            "https://doi.org/10.1038/s41592-024-02241-6"
+          ]
+        ],
+        "pri": "D1",
+        "purpose": "一次 Tier-0 扫完，统计阳性率。",
+        "methods": "统一 MCF-7 板设计。",
+        "expected": "低阳性率；偶发阳性升 D0。另：lovastatin±GGPP 应力纤维作 C0 校准孔（非 BAX 边）。"
+      }
+    ]
+  }
+]
